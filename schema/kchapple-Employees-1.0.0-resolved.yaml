@@ -1,0 +1,228 @@
+---
+openapi: 3.0.0
+info:
+  title: Employee Stats API
+  description: This is an API to calculate salary stats across employees and departments
+  contact:
+    email: ken.chapple@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/kchapple/Employees/1.0.0
+  description: SwaggerHub API Auto Mocking
+paths:
+  /health:
+    get:
+      summary: get health of sever
+      description: simple get to see if the server is there
+      operationId: getHealth
+      responses:
+        "200":
+          description: successful operation
+  /employee/{employeeId}:
+    get:
+      summary: gets an employee
+      description: Finds an employee by ID
+      operationId: findEmployee
+      parameters:
+      - name: employeeId
+        in: path
+        description: ID of the employee to find
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Employee not found
+    delete:
+      summary: deletes an employee
+      description: Deletes an employee from the system
+      operationId: deleteEmployee
+      parameters:
+      - name: employeeId
+        in: path
+        description: ID of the employee that shall be deleted
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Employee not found
+  /employee:
+    post:
+      summary: adds an employee
+      description: Adds an employee to the system
+      operationId: addEmployee
+      requestBody:
+        description: Employee to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+      responses:
+        "201":
+          description: employee created
+        "400":
+          description: invalid input, object invalid
+        "409":
+          description: an existing item already exists
+  /statistics/summary:
+    get:
+      summary: Retrieve SS across all departments
+      description: Retrieve Summary statictics (mean, min, max salary) across all departments
+      operationId: getAllSummaryStatistics
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SummaryStatistics'
+        "400":
+          description: No employees found to generate statistics
+  /statistics/summaryForOnContract:
+    get:
+      summary: Retrieve SS for on contract employees across all departments
+      description: Retrieve Summary statictics (mean, min, max salary) across all departments for employees who are on contract
+      operationId: getSummaryStatisticsForOnContract
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SummaryStatistics'
+        "400":
+          description: No employees found to generate statistics
+  /statistics/summaryForDepartments:
+    get:
+      summary: Retrieve SS organized by department
+      description: Retrieve Summary statictics (mean, min, max salary) for each department
+      operationId: getSummaryStatisticsByDepartment
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DepartmentStatistics'
+        "400":
+          description: No employees found to generate statistics
+  /statistics/summaryForCombinations:
+    get:
+      summary: Retrieve SS organized by combinations of departments and their sub-departments
+      description: Retrieve Summary statictics (mean, min, max salary) for each department's subdepartments
+      operationId: getSummaryStatisticsByDepartmentAndSubDeparment
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ComboStatistics'
+        "400":
+          description: No employees found to generate statistics
+components:
+  schemas:
+    Employee:
+      required:
+      - currency
+      - department
+      - name
+      - salary
+      - sub_department
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        name:
+          type: string
+          format: string
+          example: Abhishek
+        salary:
+          type: string
+          format: number
+          example: "145000"
+        currency:
+          type: string
+          format: currency
+          example: USD
+        department:
+          type: string
+          format: string
+          example: Engineering
+        sub_department:
+          type: string
+          format: string
+          example: Platform
+        on_contract:
+          type: string
+          format: boolean
+          example: "true"
+    ComboStatistics:
+      required:
+      - department
+      - departmentStatistics
+      type: object
+      properties:
+        department:
+          type: string
+          example: Banking
+        departmentStatistics:
+          type: array
+          items:
+            $ref: '#/components/schemas/DepartmentStatistics'
+    DepartmentStatistics:
+      required:
+      - department
+      - summaryStatistics
+      type: object
+      properties:
+        department:
+          type: string
+          example: Engineering
+        summaryStatistics:
+          type: array
+          items:
+            $ref: '#/components/schemas/SummaryStatistics'
+    SummaryStatistics:
+      required:
+      - max
+      - mean
+      - min
+      type: object
+      properties:
+        mean:
+          type: string
+          format: number
+          example: "90000"
+        min:
+          type: string
+          format: number
+          example: "37000"
+        max:
+          type: string
+          format: number
+          example: "2000000"

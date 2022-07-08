@@ -6,6 +6,7 @@
     "build": "tsc",
     "dev": "nodemon",
     "serve": "node ./build/index.js",
+    "gen": "sta -p ./schema/kchapple-Employees-1.0.0-resolved.yaml -o ./src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "nodemonConfig": {
@@ -28,6 +29,9 @@
   },
   "dependencies": {
     "express": "^4.18.1",
+    "express-openapi-validate": "^0.6.1",
+    "js-yaml": "^4.1.0",
+    "swagger-typescript-api": "^9.3.1",
     "winston": "^3.8.1"
   }
 }

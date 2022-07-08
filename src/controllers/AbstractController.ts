@@ -1,10 +1,14 @@
-import Database from "../models/Database";
+import State from "../models/State";
 
-export default class AbstractController {
+export class AbstractController {
 
-    database: Database;
+    readonly _state: State;
 
-    constructor(database: Database) {
-        this.database = database
+    get state() {
+        return this._state
+    }
+
+    constructor(state: State) {
+        this._state = state
     }
 }

@@ -14,20 +14,37 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const winston_1 = require("winston");
+const Database_1 = __importDefault(require("./models/Database"));
+const EmployeeController_1 = __importDefault(require("./controllers/EmployeeController"));
+const HealthController_1 = __importDefault(require("./controllers/HealthController"));
 const PORT = process.env.PORT || 8000;
 const app = (0, express_1.default)();
+const router = express_1.default.Router();
+const database = new Database_1.default();
+app.use(express_1.default.json());
+app.use(express_1.default.static('public'));
+app.use(router);
 const logger = (0, winston_1.createLogger)({
     transports: [new winston_1.transports.Console()],
-    format: winston_1.format.combine(winston_1.format.colorize(), winston_1.format.timestamp(), winston_1.format.printf(({ timestamp, level, message }) => {
-        return `[${timestamp}] ${level}: ${message}`;
-    })),
+    format: winston_1.format.combine(winston_1.format.colorize(), winston_1.format.timestamp(), winston_1.format.simple()),
 });
-app.get("/health", (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/health', (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     logger.log({ level: 'info', message: 'GET /health. headers: ' + JSON.stringify(request.headers) });
-    response.send({
-        message: "healthy"
-    });
+    const controller = new HealthController_1.default(database);
+    const controllerResp = yield controller.getMessage();
+    return response.send(controllerResp);
+}));
+router.post('/employee', (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    logger.log({ level: 'info', message: 'POST /employee. headers: ' + JSON.stringify(request.headers) });
+    const controller = new EmployeeController_1.default(database);
+    const controllerResp = controller.createEmployee(request.body);
+    return response.send(controllerResp);
+}));
+router.get('/employees', (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    logger.log({ level: 'info', message: 'GET /employees. headers: ' + JSON.stringify(request.headers) });
+    const controller = new EmployeeController_1.default(database);
+    const controllerResp = controller.fetchEmployees();
 }));
 app.listen(PORT, () => {
-    logger.log("Server is running on port", PORT);
+    logger.log({ level: 'info', message: 'Server is running on port ' + PORT });
 });
