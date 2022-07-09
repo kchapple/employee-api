@@ -8,21 +8,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const AbstractController_1 = __importDefault(require("./AbstractController"));
-class EmployeeController extends AbstractController_1.default {
+exports.EmployeeController = void 0;
+const AbstractController_1 = require("./AbstractController");
+class EmployeeController extends AbstractController_1.AbstractController {
     createEmployee(body) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.database.addEmployee(body);
+            return this.state.addEmployee(body);
+        });
+    }
+    delete(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.state.deleteEmployee(id);
         });
     }
     fetchEmployees() {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.database.fetchEmployees();
+            return this.state.fetchEmployees();
         });
     }
 }
-exports.default = EmployeeController;
+exports.EmployeeController = EmployeeController;

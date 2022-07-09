@@ -1,8 +1,7 @@
 import {AbstractController} from "./AbstractController";
-import {HealthResponseInterface} from "../interfaces/HealthResponseInterface";
 
-export default class HealthController extends AbstractController {
-    public async getMessage(): Promise<HealthResponseInterface> {
+export class HealthController extends AbstractController {
+    public async getMessage(): Promise<object> {
         return {
             message: "Healthy"
         }

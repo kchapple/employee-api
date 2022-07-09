@@ -1,9 +1,9 @@
 import {AbstractController} from "./AbstractController";
-import {EmployeeInterface} from "../interfaces/EmployeeInterface";
+import {Employee} from "../Api";
 
-export default class EmployeeController extends AbstractController {
+export class EmployeeController extends AbstractController {
 
-    public async createEmployee(body: EmployeeInterface): Promise<EmployeeInterface> {
+    public async createEmployee(body: Employee): Promise<Employee> {
         return this.state.addEmployee(body)
     }
 

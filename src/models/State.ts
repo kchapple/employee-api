@@ -1,37 +1,37 @@
-import {EmployeeInterface} from "../interfaces/EmployeeInterface";
+import {Employee} from "../Api"
 import {randomUUID} from "crypto";
 
-export default class State {
-    employees: Map<string,EmployeeInterface>;
+export class State {
+    employees: Map<string,Employee>;
 
     constructor() {
         this.employees = new Map();
     }
 
-    addEmployee(employee: EmployeeInterface) : Promise<EmployeeInterface> {
+    public async addEmployee(employee: Employee) : Promise<Employee> {
         return new Promise(resolve => {
             const uuid = randomUUID();
             this.employees.set(uuid, employee);
             employee.id = uuid;
             resolve(employee);
-        })
+        });
     }
 
-    deleteEmployee(uuid: string) {
+    public async deleteEmployee(uuid: string) {
         return new Promise(resolve => {
             this.employees.delete(uuid);
             resolve(uuid);
-        })
+        });
     }
 
-    fetchEmployees() : Promise<EmployeeInterface[]> {
-        return new Promise<Array<EmployeeInterface>>(resolve => {
-            const employeeArray = this.employees.values()
-            return employeeArray
-        })
+    public fetchEmployees() : Promise<Employee[]> {
+        return new Promise<Array<Employee>>(resolve => {
+            const employeeArray = Array.from(this.employees.values());
+            resolve(employeeArray);
+        });
     }
 
-    printEmployees() {
+    public printEmployees() {
         console.log(this.employees)
     }
 }

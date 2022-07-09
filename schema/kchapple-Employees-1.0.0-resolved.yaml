@@ -10,7 +10,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-- url: https://virtserver.swaggerhub.com/kchapple/Employees/1.0.0
+- url: /
   description: SwaggerHub API Auto Mocking
 paths:
   /health:
@@ -71,6 +71,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Employee'
+        required: true
       responses:
         "201":
           description: employee created
@@ -159,28 +160,22 @@ components:
           example: d290f1ee-6c54-4b01-90e6-d701748f0851
         name:
           type: string
-          format: string
           example: Abhishek
         salary:
           type: string
-          format: number
-          example: "145000"
+          example: 145000
         currency:
           type: string
-          format: currency
           example: USD
         department:
           type: string
-          format: string
           example: Engineering
         sub_department:
           type: string
-          format: string
           example: Platform
         on_contract:
           type: string
-          format: boolean
-          example: "true"
+          example: true
     ComboStatistics:
       required:
       - department
@@ -215,14 +210,11 @@ components:
       type: object
       properties:
         mean:
-          type: string
-          format: number
-          example: "90000"
+          type: number
+          example: 90000
         min:
-          type: string
-          format: number
-          example: "37000"
+          type: number
+          example: 37000
         max:
-          type: string
-          format: number
-          example: "2000000"
+          type: number
+          example: 2000000

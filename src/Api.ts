@@ -16,41 +16,23 @@ export interface Employee {
    */
   id?: string;
 
-  /**
-   * @format string
-   * @example Abhishek
-   */
+  /** @example Abhishek */
   name: string;
 
-  /**
-   * @format number
-   * @example 145000
-   */
+  /** @example 145000 */
   salary: string;
 
-  /**
-   * @format currency
-   * @example USD
-   */
+  /** @example USD */
   currency: string;
 
-  /**
-   * @format string
-   * @example Engineering
-   */
+  /** @example Engineering */
   department: string;
 
-  /**
-   * @format string
-   * @example Platform
-   */
+  /** @example Platform */
   sub_department: string;
 
-  /**
-   * @format boolean
-   * @example true
-   */
-  on_contract?: string;
+  /** @example true */
+  on_contract?: boolean;
 }
 
 export interface ComboStatistics {
@@ -66,23 +48,14 @@ export interface DepartmentStatistics {
 }
 
 export interface SummaryStatistics {
-  /**
-   * @format number
-   * @example 90000
-   */
-  mean: string;
+  /** @example 90000 */
+  mean: number;
 
-  /**
-   * @format number
-   * @example 37000
-   */
-  min: string;
+  /** @example 37000 */
+  min: number;
 
-  /**
-   * @format number
-   * @example 2000000
-   */
-  max: string;
+  /** @example 2000000 */
+  max: number;
 }
 
 export type QueryParamsType = Record<string | number, any>;
@@ -130,7 +103,7 @@ export enum ContentType {
 }
 
 export class HttpClient<SecurityDataType = unknown> {
-  public baseUrl: string = "https://virtserver.swaggerhub.com/kchapple/Employees/1.0.0";
+  public baseUrl: string = "/";
   private securityData: SecurityDataType | null = null;
   private securityWorker?: ApiConfig<SecurityDataType>["securityWorker"];
   private abortControllers = new Map<CancelToken, AbortController>();
@@ -297,7 +270,7 @@ export class HttpClient<SecurityDataType = unknown> {
  * @title Employee Stats API
  * @version 1.0.0
  * @license Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0.html)
- * @baseUrl https://virtserver.swaggerhub.com/kchapple/Employees/1.0.0
+ * @baseUrl /
  * @contact <ken.chapple@gmail.com>
  *
  * This is an API to calculate salary stats across employees and departments
