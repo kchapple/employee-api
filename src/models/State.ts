@@ -1,5 +1,6 @@
 import {Employee} from "../Api"
 import {randomUUID} from "crypto";
+import StateException from "../exceptions/StateException";
 
 export class State {
     employees: Map<string,Employee>;
@@ -17,10 +18,14 @@ export class State {
         });
     }
 
-    public async deleteEmployee(uuid: string) {
+    public async deleteEmployee(uuid: string) : Promise<String> {
         return new Promise(resolve => {
-            this.employees.delete(uuid);
-            resolve(uuid);
+            if (this.employees.has(uuid)) {
+                this.employees.delete(uuid);
+                resolve(uuid);
+            } else {
+                throw new StateException("Employee not found")
+            }
         });
     }
 

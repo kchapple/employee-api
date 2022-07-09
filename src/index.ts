@@ -14,10 +14,10 @@ const app: Application = express();
 const state = new State();
 
 app.use(bodyParser.json());
-app.use(express.json());
+//app.use(express.json());
 app.use(express.static('public'));
 
-// Construct the validator with some basic options
+// Construct the validator based on the spec from our schema dir
 app.use(OpenApiValidator.middleware({
     apiSpec: './schema/kchapple-Employees-1.0.0-resolved.yaml'
 }));
@@ -42,15 +42,30 @@ app.delete('/employee/:id', async (request: express.Request, response: express.R
     logger.log({ level: 'info', message: 'DELETE /employee. headers: ' + JSON.stringify(request.headers) });
     const controller = new EmployeeController(state);
     const id = request.params.id;
-    const controllerResp = await controller.delete(id)
+    try {
+        const controllerResp = await controller.delete(id);
+        return response.send(controllerResp);
+    } catch (error: any) {
+        return response.send({
+            status: 400,
+            message: error.message
+        });
+    }
 })
 
 app.post('/employee', async (request: express.Request, response: express.Response) => {
     logger.log({ level: 'info', message: 'POST /employee. headers: ' + JSON.stringify(request.headers) });
     const controller = new EmployeeController(state);
-    const controllerResp = await controller.createEmployee(request.body);
-    state.printEmployees(); // TODO remove
-    return response.send(controllerResp);
+    try {
+        const controllerResp = await controller.createEmployee(request.body);
+        state.printEmployees(); // TODO remove
+        return response.send(controllerResp);
+    } catch (error: any) {
+        return response.send({
+            status: 400,
+            message: error.message
+        });
+    }
 });
 
 app.get('/employees', async (request: express.Request, response: express.Response) => {
@@ -67,8 +82,8 @@ app.get('/statistics/summary', async (request: express.Request, response: expres
         return response.send(controllerResp);
     } catch (error: any) {
         return response.send({
-            status: 404,
-            message: "No Employees found to run statistical analysis"
+            status: 400,
+            message: error.message
         });
     }
 });
