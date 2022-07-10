@@ -8,12 +8,27 @@ const swaggerUi = require("swagger-ui-express");
 
 import errorMiddleware from "./middleware/error.middleware";
 import logger from './middleware/logger.middleware';
-import jwtCheck from "./middleware/auth.middleware";
+// import jwtCheck from "./middleware/auth.middleware";
 import validator from "./middleware/schemavalidator.middleware";
 import swaggerDocument from "./middleware/documentation.middleware";
 
+const { auth } = require('express-oauth2-jwt-bearer');
+
 const app: Application = express();
 const state = new State();
+
+let jwtCheck;
+if (process.env.JEST_WORKER_ID === undefined) {
+    // Middleware to verify against the Auth0 JSON Web Key Set.
+    jwtCheck = auth({
+        audience: 'localhost:8000/',
+        issuerBaseURL: 'https://dev-ekg7j3vm.us.auth0.com/',
+    });
+} else {
+    jwtCheck = function(req:express.Request, res:express.Response, next:express.NextFunction){
+        next();
+    };
+}
 
 app.use(
     "/documentation",
