@@ -10,8 +10,11 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-- url: /
-  description: SwaggerHub API Auto Mocking
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/kchapple/Employees/1.0.0
+  - url: /
+    description: SwaggerHub API Auto Mocking
 paths:
   /health:
     get:
@@ -49,20 +52,24 @@ paths:
       description: Finds an employee by ID
       operationId: findEmployee
       parameters:
-      - name: employeeId
-        in: path
-        description: ID of the employee to find
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-          format: uuid
+        - name: employeeId
+          in: path
+          description: ID of the employee to find
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: uuid
       responses:
         "200":
           description: Employee found
         "400":
-          description: Invalid ID supplied
+          description: Request could not be processed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         "404":
           description: Employee not found
     delete:
@@ -70,20 +77,24 @@ paths:
       description: Deletes an employee from the system
       operationId: deleteEmployee
       parameters:
-      - name: employeeId
-        in: path
-        description: ID of the employee that shall be deleted
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-          format: uuid
+        - name: employeeId
+          in: path
+          description: ID of the employee that shall be deleted
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: uuid
       responses:
         "200":
           description: Employee successfully deleted
         "400":
-          description: Invalid ID supplied
+          description: Request could not be processed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         "404":
           description: Employee not found
   /employee:
@@ -106,7 +117,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Employee'
         "400":
-          description: invalid input, object invalid
+          description: Request could not be processed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         "409":
           description: an existing item already exists
   /statistics/summary:
@@ -122,7 +137,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/SummaryStatistics'
         "400":
-          description: No employees found to generate statistics
+          description: Request could not be processed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /statistics/summaryForOnContract:
     get:
       summary: Retrieve SS for on contract employees across all departments
@@ -136,7 +155,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/SummaryStatistics'
         "400":
-          description: No employees found to generate statistics
+          description: Request could not be processed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /statistics/summaryForDepartments:
     get:
       summary: Retrieve SS organized by department
@@ -152,7 +175,11 @@ paths:
                 items:
                   $ref: '#/components/schemas/DepartmentStatistics'
         "400":
-          description: No employees found to generate statistics
+          description: Request could not be processed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /statistics/summaryForCombinations:
     get:
       summary: Retrieve SS organized by combinations of departments and their sub-departments
@@ -168,16 +195,20 @@ paths:
                 items:
                   $ref: '#/components/schemas/ComboStatistics'
         "400":
-          description: No employees found to generate statistics
+          description: Request could not be processed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
     Employee:
       required:
-      - currency
-      - department
-      - name
-      - salary
-      - sub_department
+        - currency
+        - department
+        - name
+        - salary
+        - sub_department
       type: object
       properties:
         id:
@@ -204,8 +235,8 @@ components:
           example: true
     ComboStatistics:
       required:
-      - department
-      - departmentStatistics
+        - department
+        - departmentStatistics
       type: object
       properties:
         department:
@@ -217,8 +248,8 @@ components:
             $ref: '#/components/schemas/DepartmentStatistics'
     DepartmentStatistics:
       required:
-      - department
-      - summaryStatistics
+        - department
+        - summaryStatistics
       type: object
       properties:
         department:
@@ -228,7 +259,23 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SummaryStatistics'
+    ErrorResponse:
+      required:
+        - status
+        - message
+      type: object
+      properties:
+        status:
+          type: number
+          example: 400
+        message:
+          type: string
+          example: 'Your request could not be completed because of incomplete data'
     SummaryStatistics:
+      required:
+        - mean
+        - min
+        - max
       type: object
       properties:
         mean:

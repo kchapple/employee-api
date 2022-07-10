@@ -87,6 +87,33 @@
 			"response": []
 		},
 		{
+			"name": "Employee Create: Ken",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Abhishek\",\n    \"salary\": \"145000\",\n    \"currency\": \"USD\",\n    \"department\": \"Engineering\",\n    \"sub_department\": \"Platform\"\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/employee",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Employee Create: Anurag",
 			"request": {
 				"method": "POST",
