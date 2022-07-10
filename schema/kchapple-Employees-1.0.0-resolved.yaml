@@ -10,11 +10,8 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-  # Added by API Auto Mocking Plugin
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/kchapple/Employees/1.0.0
-  - url: /
-    description: SwaggerHub API Auto Mocking
+- url: /
+  description: SwaggerHub API Auto Mocking
 paths:
   /health:
     get:
@@ -52,15 +49,15 @@ paths:
       description: Finds an employee by ID
       operationId: findEmployee
       parameters:
-        - name: employeeId
-          in: path
-          description: ID of the employee to find
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: uuid
+      - name: employeeId
+        in: path
+        description: ID of the employee to find
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
       responses:
         "200":
           description: Employee found
@@ -73,15 +70,15 @@ paths:
       description: Deletes an employee from the system
       operationId: deleteEmployee
       parameters:
-        - name: employeeId
-          in: path
-          description: ID of the employee that shall be deleted
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: string
-            format: uuid
+      - name: employeeId
+        in: path
+        description: ID of the employee that shall be deleted
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
       responses:
         "200":
           description: Employee successfully deleted
@@ -176,11 +173,11 @@ components:
   schemas:
     Employee:
       required:
-        - currency
-        - department
-        - name
-        - salary
-        - sub_department
+      - currency
+      - department
+      - name
+      - salary
+      - sub_department
       type: object
       properties:
         id:
@@ -207,8 +204,8 @@ components:
           example: true
     ComboStatistics:
       required:
-        - department
-        - departmentStatistics
+      - department
+      - departmentStatistics
       type: object
       properties:
         department:
@@ -220,8 +217,8 @@ components:
             $ref: '#/components/schemas/DepartmentStatistics'
     DepartmentStatistics:
       required:
-        - department
-        - summaryStatistics
+      - department
+      - summaryStatistics
       type: object
       properties:
         department:

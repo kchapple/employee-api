@@ -1,5 +1,7 @@
 // we will use supertest to test HTTP requests/responses
 import request from 'supertest';
+import supertest from "supertest";
+
 // we also need our app for the correct routes!
 // @ts-ignore
 const { app } = require("../app");

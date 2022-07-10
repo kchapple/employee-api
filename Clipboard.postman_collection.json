@@ -1,0 +1,277 @@
+{
+	"info": {
+		"_postman_id": "6db070f1-67f1-4aa5-b2fe-6a4445367b2c",
+		"name": "Clipboard",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/health",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/health",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Emplyees List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/employees",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee Create: Abhishek",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Abhishek\",\n    \"salary\": \"145000\",\n    \"currency\": \"USD\",\n    \"department\": \"Engineering\",\n    \"sub_department\": \"Platform\"\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/employee",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee Create: Anurag",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Anurag\",\n    \"salary\": \"90000\",\n    \"currency\": \"USD\",\n    \"department\": \"Banking\",\n    \"on_contract\": \"true\",\n    \"sub_department\": \"Loan\"\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/employee",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee Create - Missing Name",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Abhishek\",\n    \"salary\": \"145000\",\n    \"currency\": \"USD\",\n    \"department\": \"Engineering\",\n    \"sub_department\": \"Platform\"\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/employee",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Abhishek\",\n    \"salary\": \"145000\",\n    \"currency\": \"USD\",\n    \"department\": \"Engineering\",\n    \"sub_department\": \"Platform\"\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/employee",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Summary Statistics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/statistics/summary",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"statistics",
+						"summary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Summary Statistics On Contract",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/statistics/summary",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"statistics",
+						"summary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Summary Statistics By Department",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/statistics/summaryForDepartments",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"statistics",
+						"summaryForDepartments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Summary Statistics By Combinations",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/statistics/summaryForDepartments",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"statistics",
+						"summaryForDepartments"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InFaNlJ2Rmg2Q2hNZlJtSFRxUzJhbyJ9.eyJpc3MiOiJodHRwczovL2Rldi1la2c3ajN2bS51cy5hdXRoMC5jb20vIiwic3ViIjoiN2x4bFdJeXFPNUN1NG5NVGlTNkhwcmx0aHU1dGxMZmpAY2xpZW50cyIsImF1ZCI6ImxvY2FsaG9zdDo4MDAwLyIsImlhdCI6MTY1NzQxNzYxOCwiZXhwIjoxNjU3NTA0MDE4LCJhenAiOiI3bHhsV0l5cU81Q3U0bk1UaVM2SHBybHRodTV0bExmaiIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyJ9.EjylCKYDjEzP8U94Jh8RVGreaiFdaHmmrs571PUGb33BQ2W661R43-09QjTiygA0nNBSBwsowJPH6Y5cruXr631T9oNCtAlzGXjhezEqdZxjsY3mm6YL49KYWCjbPVoThGVYotYlKsyJxFqwD1zqoiBKbkYZa8CEcy25jyC4mIc8WyxZTilWKxOLF2xf76BhpLTwqQeMFemJ58BNluXcWCzWyWxSl1RJERzpTGc8LRoL-M_oZxyf8I0h0ZDWwGWX_J68Pq_RDK5IlcKvb_swFmkPibohhw-bTQXSwS6eujD-n2R4uJKWHmmEZtf2gTZP3Fl-txS5UNHXLENpPZRXgg",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

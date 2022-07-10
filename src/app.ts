@@ -4,16 +4,22 @@ import { EmployeeController } from './controllers/EmployeeController';
 import { HealthController } from './controllers/HealthController';
 import { State } from './models/State';
 import { StatsController } from "./controllers/StatsController";
+const swaggerUi = require("swagger-ui-express");
 
 import errorMiddleware from "./middleware/error.middleware";
 import logger from './middleware/logger.middleware';
 import jwtCheck from "./middleware/auth.middleware";
 import validator from "./middleware/schemavalidator.middleware";
+import swaggerDocument from "./middleware/documentation.middleware";
 
 const app: Application = express();
 const state = new State();
 
-app.use(jwtCheck);
+app.use(
+    "/documentation",
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocument)
+);
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(validator);
@@ -25,7 +31,7 @@ app.get('/health', async (request: express.Request, response: express.Response) 
     return response.send(controllerResp);
 });
 
-app.delete('/employee/:id', async (request: express.Request, response: express.Response) => {
+app.delete('/employee/:id', jwtCheck, async (request: express.Request, response: express.Response) => {
     logger.log({ level: 'info', message: 'DELETE /employee. headers: ' + JSON.stringify(request.headers) });
     const controller = new EmployeeController(state);
     const id = request.params.id;
@@ -40,7 +46,7 @@ app.delete('/employee/:id', async (request: express.Request, response: express.R
     }
 })
 
-app.post('/employee', async (request: express.Request, response: express.Response) => {
+app.post('/employee', jwtCheck, async (request: express.Request, response: express.Response) => {
     logger.log({ level: 'info', message: 'POST /employee. headers: ' + JSON.stringify(request.headers) });
     const controller = new EmployeeController(state);
     try {
@@ -55,7 +61,7 @@ app.post('/employee', async (request: express.Request, response: express.Respons
     }
 });
 
-app.get('/employees', async (request: express.Request, response: express.Response) => {
+app.get('/employees', jwtCheck, async (request: express.Request, response: express.Response) => {
     logger.log({ level: 'info', message: 'GET /employees. headers: ' + JSON.stringify(request.headers) });
     const controller = new EmployeeController(state);
     try {
@@ -69,7 +75,7 @@ app.get('/employees', async (request: express.Request, response: express.Respons
     }
 });
 
-app.get('/statistics/summary', async (request: express.Request, response: express.Response) => {
+app.get('/statistics/summary', jwtCheck, async (request: express.Request, response: express.Response) => {
     logger.log({ level: 'info', message: 'GET /statistics/summary. headers: ' + JSON.stringify(request.headers) });
     const controller = new StatsController(state);
     try {
@@ -83,7 +89,7 @@ app.get('/statistics/summary', async (request: express.Request, response: expres
     }
 });
 
-app.get('/statistics/summaryForOnContract', async (request: express.Request, response: express.Response) => {
+app.get('/statistics/summaryForOnContract', jwtCheck, async (request: express.Request, response: express.Response) => {
     logger.log({ level: 'info', message: 'GET /statistics/summary. headers: ' + JSON.stringify(request.headers) });
     const controller = new StatsController(state);
     try {
@@ -97,7 +103,7 @@ app.get('/statistics/summaryForOnContract', async (request: express.Request, res
     }
 });
 
-app.get('/statistics/summaryForDepartments', async (request: express.Request, response: express.Response) => {
+app.get('/statistics/summaryForDepartments', jwtCheck, async (request: express.Request, response: express.Response) => {
     logger.log({ level: 'info', message: 'GET /statistics/summaryForDepartments. headers: ' + JSON.stringify(request.headers) });
     const controller = new StatsController(state);
     try {
@@ -111,7 +117,7 @@ app.get('/statistics/summaryForDepartments', async (request: express.Request, re
     }
 });
 
-app.get('/statistics/summaryForCombinations', async (request: express.Request, response: express.Response) => {
+app.get('/statistics/summaryForCombinations', jwtCheck, async (request: express.Request, response: express.Response) => {
     logger.log({ level: 'info', message: 'GET /statistics/summaryForCombinations. headers: ' + JSON.stringify(request.headers) });
     const controller = new StatsController(state);
     try {
