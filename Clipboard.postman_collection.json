@@ -60,6 +60,24 @@
 			"response": []
 		},
 		{
+			"name": "Employee Get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/employees",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Employee Create: Abhishek",
 			"request": {
 				"method": "POST",

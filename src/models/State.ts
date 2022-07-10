@@ -24,6 +24,17 @@ export class State {
         });
     }
 
+    public async findEmployeeById(uuid: string) : Promise<Employee> {
+        return new Promise(resolve => {
+            if (this.employees.has(uuid)) {
+                const employee = this.employees.get(uuid) as Employee;
+                resolve(employee);
+            } else {
+                throw new StateException("Employee not found")
+            }
+        });
+    }
+
     public async deleteEmployee(uuid: string) : Promise<String> {
         return new Promise(resolve => {
             if (this.employees.has(uuid)) {

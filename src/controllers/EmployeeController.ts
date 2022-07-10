@@ -7,6 +7,10 @@ export class EmployeeController extends AbstractController {
         return this.state.addEmployee(body)
     }
 
+    public async findEmployeeById(id: string) {
+        return this.state.findEmployeeById(id);
+    }
+
     public async delete(id: string) {
         return this.state.deleteEmployee(id);
     }

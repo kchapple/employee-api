@@ -325,9 +325,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/employee/{employeeId}
      */
     findEmployee: (employeeId: string, params: RequestParams = {}) =>
-      this.request<void, ErrorResponse | void>({
+      this.request<Employee, ErrorResponse | void>({
         path: `/employee/${employeeId}`,
         method: "GET",
+        format: "json",
         ...params,
       }),
 

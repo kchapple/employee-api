@@ -64,6 +64,10 @@ paths:
       responses:
         "200":
           description: Employee found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
         "400":
           description: Request could not be processed
           content:

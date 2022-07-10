@@ -58,6 +58,19 @@ app.delete('/employee/:id', jwtCheck, async (request: express.Request, response:
         const errResp = errorHandler.makeErrorResponse(error, response);
         return response.send(errResp);
     }
+});
+
+app.get('/employee/:id', jwtCheck, async (request: express.Request, response: express.Response) => {
+    logger.log({ level: 'info', message: 'GET /employee. headers: ' + JSON.stringify(request.headers) });
+    const controller = new EmployeeController(state);
+    const id = request.params.id;
+    try {
+        const controllerResp = await controller.findEmployeeById(id);
+        return response.send(controllerResp);
+    } catch (error: any) {
+        const errResp = errorHandler.makeErrorResponse(error, response);
+        return response.send(errResp);
+    }
 })
 
 app.post('/employee', jwtCheck, async (request: express.Request, response: express.Response) => {
