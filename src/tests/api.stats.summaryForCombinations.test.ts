@@ -32,13 +32,15 @@ describe("GET /statistics/summaryForCombinations", () => {
 
         // Add our data
         for (let d in data) {
-            const response = await request(app).post("/employee").send(d);
+            await request(app).post("/employee").send(data[d]);
         }
 
         const response2 = await request(app).get('/statistics/summaryForCombinations');
-        expect(response2.body).toHaveProperty("mean", 200);
-        expect(response2.body).toHaveProperty("min", 100);
-        expect(response2.body).toHaveProperty("max", 300);
+        expect(response2.body).toHaveProperty("Engineering");
+        expect(response2.body["Engineering"]).toHaveProperty("Platform");
+        expect(response2.body["Engineering"]["Platform"]).toHaveProperty("mean", 200);
+        expect(response2.body["Engineering"]["Platform"]).toHaveProperty("min", 100);
+        expect(response2.body["Engineering"]["Platform"]).toHaveProperty("max", 300);
         expect(response2.statusCode).toBe(200);
     });
 });
