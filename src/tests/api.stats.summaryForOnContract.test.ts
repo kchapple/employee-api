@@ -16,9 +16,24 @@ describe("GET /statistics/summaryForOnContract", () => {
         });
 
         const response2 = await request(app).get('/statistics/summaryForOnContract');
-        expect(response2.body).toHaveProperty("mean", 145000);
-        expect(response2.body).toHaveProperty("min", 145000);
-        expect(response2.body).toHaveProperty("max", 145000);
-        expect(response2.statusCode).toBe(200);
+
+        // No on-contract, return 400
+        expect(response2.body.status).toBe(400);
+
+        await request(app).post("/employee").send({
+            "name": "Ken",
+            "salary": "145000",
+            "currency": "USD",
+            "department": "Engineering",
+            "sub_department": "Platform",
+            "on_contract": "true"
+        });
+
+        const response3 = await request(app).get('/statistics/summaryForOnContract');
+
+        expect(response3.body).toHaveProperty("mean", 145000);
+        expect(response3.body).toHaveProperty("min", 145000);
+        expect(response3.body).toHaveProperty("max", 145000);
+        expect(response3.statusCode).toBe(200);
     });
 });

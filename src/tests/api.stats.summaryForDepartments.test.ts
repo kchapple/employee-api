@@ -14,11 +14,13 @@ describe("GET /statistics/summaryForDepartments", () => {
             "department": "Engineering",
             "sub_department": "Platform"
         });
+        const id = response.body.id;
 
         const response2 = await request(app).get('/statistics/summaryForDepartments');
-        expect(response2.body).toHaveProperty("mean", 145000);
-        expect(response2.body).toHaveProperty("min", 145000);
-        expect(response2.body).toHaveProperty("max", 145000);
+        expect(response2.body).toHaveProperty("Engineering");
+        expect(response2.body["Engineering"]).toHaveProperty("mean", 145000);
+        expect(response2.body["Engineering"]).toHaveProperty("min", 145000);
+        expect(response2.body["Engineering"]).toHaveProperty("max", 145000);
         expect(response2.statusCode).toBe(200);
     });
 });
