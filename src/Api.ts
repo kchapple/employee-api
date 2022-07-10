@@ -103,7 +103,7 @@ export enum ContentType {
 }
 
 export class HttpClient<SecurityDataType = unknown> {
-  public baseUrl: string = "https://virtserver.swaggerhub.com/kchapple/Employees/1.0.0";
+  public baseUrl: string = "/";
   private securityData: SecurityDataType | null = null;
   private securityWorker?: ApiConfig<SecurityDataType>["securityWorker"];
   private abortControllers = new Map<CancelToken, AbortController>();
@@ -270,7 +270,7 @@ export class HttpClient<SecurityDataType = unknown> {
  * @title Employee Stats API
  * @version 1.0.0
  * @license Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0.html)
- * @baseUrl https://virtserver.swaggerhub.com/kchapple/Employees/1.0.0
+ * @baseUrl /
  * @contact <ken.chapple@gmail.com>
  *
  * This is an API to calculate salary stats across employees and departments

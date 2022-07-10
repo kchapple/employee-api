@@ -171,7 +171,17 @@ class Api extends HttpClient {
              * @summary get health of sever
              * @request GET:/health
              */
-            getHealth: (params = {}) => this.request(Object.assign({ path: `/health`, method: "GET" }, params)),
+            getHealth: (params = {}) => this.request(Object.assign({ path: `/health`, method: "GET", format: "json" }, params)),
+        };
+        this.employees = {
+            /**
+             * @description Gets a list of all employees in the system
+             *
+             * @name GetAllEmployees
+             * @summary get all employees
+             * @request GET:/employees
+             */
+            getAllEmployees: (params = {}) => this.request(Object.assign({ path: `/employees`, method: "GET", format: "json" }, params)),
         };
         this.employee = {
             /**
@@ -197,7 +207,7 @@ class Api extends HttpClient {
              * @summary adds an employee
              * @request POST:/employee
              */
-            addEmployee: (data, params = {}) => this.request(Object.assign({ path: `/employee`, method: "POST", body: data, type: ContentType.Json }, params)),
+            addEmployee: (data, params = {}) => this.request(Object.assign({ path: `/employee`, method: "POST", body: data, type: ContentType.Json, format: "json" }, params)),
         };
         this.statistics = {
             /**

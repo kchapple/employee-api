@@ -8,12 +8,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.State = void 0;
 const crypto_1 = require("crypto");
+const StateException_1 = __importDefault(require("../exceptions/StateException"));
 class State {
     constructor() {
         this.employees = new Map();
+    }
+    getEmployeesAsArray() {
+        return Array.from(this.employees.values());
     }
     addEmployee(employee) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -28,17 +35,71 @@ class State {
     deleteEmployee(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise(resolve => {
-                this.employees.delete(uuid);
-                resolve(uuid);
+                if (this.employees.has(uuid)) {
+                    this.employees.delete(uuid);
+                    resolve(uuid);
+                }
+                else {
+                    throw new StateException_1.default("Employee not found");
+                }
             });
         });
     }
     fetchEmployees() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise(resolve => {
-                const employeeArray = this.employees.values();
-                return employeeArray;
-            });
+        return new Promise(resolve => {
+            const employeeArray = Array.from(this.employees.values());
+            resolve(employeeArray);
+        });
+    }
+    fetchEmployeesByDepartment() {
+        return new Promise(resolve => {
+            let employeeArray = this.getEmployeesAsArray();
+            let result = new Map();
+            for (let i = 0; i < employeeArray.length; i++) {
+                const employee = employeeArray[i];
+                if (!result.has(employee.department)) {
+                    result.set(employee.department, new Array());
+                }
+                // @ts-ignore TS complains that employee.department could be undefined, but that is not possible
+                result.get(employee.department).push(employee);
+            }
+            resolve(result);
+        });
+    }
+    fetchEmployeesByDeptSubCombo() {
+        return new Promise(resolve => {
+            let employeeArray = this.getEmployeesAsArray();
+            let result = new Map();
+            for (let i = 0; i < employeeArray.length; i++) {
+                const employee = employeeArray[i];
+                if (!result.has(employee.department)) {
+                    result.set(employee.department, new Map());
+                }
+                const sub = result.get(employee.department);
+                // @ts-ignore
+                if (!sub.has(employee.sub_department)) {
+                    // @ts-ignore
+                    sub.set(employee.sub_department, new Array());
+                }
+                // @ts-ignore
+                const sub_array = sub.get(employee.sub_department);
+                // @ts-ignore
+                sub_array.push(employee);
+            }
+            resolve(result);
+        });
+    }
+    fetchEmployeesFilter(filter) {
+        return new Promise(resolve => {
+            let employeeArray = Array.from(this.employees.values());
+            if (filter.onContract === true) {
+                employeeArray = employeeArray.filter((employee) => {
+                    if (employee.on_contract === "true") {
+                        return employee;
+                    }
+                });
+            }
+            resolve(employeeArray);
         });
     }
     printEmployees() {

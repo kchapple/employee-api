@@ -15,7 +15,7 @@ class HealthController extends AbstractController_1.AbstractController {
     getMessage() {
         return __awaiter(this, void 0, void 0, function* () {
             return {
-                message: "Healthy"
+                message: "I am Healthy"
             };
         });
     }
