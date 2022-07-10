@@ -5,26 +5,13 @@ import { createLogger, transports, format } from 'winston';
 import { EmployeeController } from './controllers/EmployeeController';
 import { HealthController } from './controllers/HealthController';
 import { State } from './models/State';
-import errorMiddleware from "./middleware/error.middleware";
 import { StatsController } from "./controllers/StatsController";
+
+import errorMiddleware from "./middleware/error.middleware";
+import jwtCheck from "./middleware/auth.middleware";
 
 const app: Application = express();
 const state = new State();
-
-const { expressjwt } = require('express-jwt');
-const jwks = require('jwks-rsa');
-
-const jwtCheck = expressjwt({
-    secret: jwks.expressJwtSecret({
-        cache: true,
-        rateLimit: true,
-        jwksRequestsPerMinute: 5,
-        jwksUri: 'https://dev-ekg7j3vm.us.auth0.com/.well-known/jwks.json'
-    }),
-    audience: 'localhost:8000/',
-    issuer: 'https://dev-ekg7j3vm.us.auth0.com/',
-    algorithms: ['RS256']
-});
 
 app.use(jwtCheck);
 app.use(bodyParser.json());
