@@ -4,13 +4,23 @@ The API is programmed to the schema found in the schema/ directory. The schema w
 exported as a yaml file.
 
 The schema serves three main purposes:
-1. Define the API and generate documentation
+1. Define the API and generate documentation (examples are in API Documentation)
 2. Generate Typescript interfaces for the request and responses (see src/Api.js)
 3. Validation requests and responses using express-openapi-validator
 
 **Installation**
 
+*Docker*
+
 `docker compose up`
+
+*manual start*
+
+`npm run serve`
+
+*nodemon for local development*
+
+`npm run dev`
 
 **API Documentation**
 
@@ -63,7 +73,17 @@ The application uses Jest for unit testing and API testing. To run tests:
 
 `npm run test`
 
+**Code Generation**
+
+The application uses swagger-typescript-api or 'sta' to generate Api.ts which contains
+typescript interfaces based on the open API schema. https://github.com/acacode/swagger-typescript-api
+
+To re-generate the Api.ts file after changing the schema, run:
+
+`npm run gen`
+
 **Docker Image**
+
 The docker image is based on the official node docker and is pushed to dockerhub. To build and
 push an update:
 ```
