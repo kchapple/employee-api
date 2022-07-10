@@ -10,8 +10,11 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-- url: /
-  description: SwaggerHub API Auto Mocking
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/kchapple/Employees/1.0.0
+  - url: /
+    description: SwaggerHub API Auto Mocking
 paths:
   /health:
     get:
@@ -21,22 +24,46 @@ paths:
       responses:
         "200":
           description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Displays health of the server
+  /employees:
+    get:
+      summary: get all employees
+      description: Gets a list of all employees in the system
+      operationId: getAllEmployees
+      responses:
+        "200":
+          description: Employee found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
   /employee/{employeeId}:
     get:
       summary: gets an employee
       description: Finds an employee by ID
       operationId: findEmployee
       parameters:
-      - name: employeeId
-        in: path
-        description: ID of the employee to find
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-          format: uuid
+        - name: employeeId
+          in: path
+          description: ID of the employee to find
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: uuid
       responses:
+        "200":
+          description: Employee found
         "400":
           description: Invalid ID supplied
         "404":
@@ -46,16 +73,18 @@ paths:
       description: Deletes an employee from the system
       operationId: deleteEmployee
       parameters:
-      - name: employeeId
-        in: path
-        description: ID of the employee that shall be deleted
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-          format: uuid
+        - name: employeeId
+          in: path
+          description: ID of the employee that shall be deleted
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: uuid
       responses:
+        "200":
+          description: Employee successfully deleted
         "400":
           description: Invalid ID supplied
         "404":
@@ -73,8 +102,12 @@ paths:
               $ref: '#/components/schemas/Employee'
         required: true
       responses:
-        "201":
+        "200":
           description: employee created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
         "400":
           description: invalid input, object invalid
         "409":
@@ -90,9 +123,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/SummaryStatistics'
+                $ref: '#/components/schemas/SummaryStatistics'
         "400":
           description: No employees found to generate statistics
   /statistics/summaryForOnContract:
@@ -106,9 +137,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/SummaryStatistics'
+                $ref: '#/components/schemas/SummaryStatistics'
         "400":
           description: No employees found to generate statistics
   /statistics/summaryForDepartments:
@@ -122,7 +151,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
+                type: object
                 items:
                   $ref: '#/components/schemas/DepartmentStatistics'
         "400":
@@ -138,7 +167,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
+                type: object
                 items:
                   $ref: '#/components/schemas/ComboStatistics'
         "400":
@@ -147,11 +176,11 @@ components:
   schemas:
     Employee:
       required:
-      - currency
-      - department
-      - name
-      - salary
-      - sub_department
+        - currency
+        - department
+        - name
+        - salary
+        - sub_department
       type: object
       properties:
         id:
@@ -178,21 +207,21 @@ components:
           example: true
     ComboStatistics:
       required:
-      - department
-      - departmentStatistics
+        - department
+        - departmentStatistics
       type: object
       properties:
         department:
           type: string
           example: Banking
         departmentStatistics:
-          type: array
+          type: object
           items:
             $ref: '#/components/schemas/DepartmentStatistics'
     DepartmentStatistics:
       required:
-      - department
-      - summaryStatistics
+        - department
+        - summaryStatistics
       type: object
       properties:
         department:
@@ -203,10 +232,6 @@ components:
           items:
             $ref: '#/components/schemas/SummaryStatistics'
     SummaryStatistics:
-      required:
-      - max
-      - mean
-      - min
       type: object
       properties:
         mean:

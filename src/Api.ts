@@ -32,13 +32,13 @@ export interface Employee {
   sub_department: string;
 
   /** @example true */
-  on_contract?: boolean;
+  on_contract?: string;
 }
 
 export interface ComboStatistics {
   /** @example Banking */
   department: string;
-  departmentStatistics: DepartmentStatistics[];
+  departmentStatistics: object;
 }
 
 export interface DepartmentStatistics {
@@ -49,13 +49,13 @@ export interface DepartmentStatistics {
 
 export interface SummaryStatistics {
   /** @example 90000 */
-  mean: number;
+  mean?: number;
 
   /** @example 37000 */
-  min: number;
+  min?: number;
 
   /** @example 2000000 */
-  max: number;
+  max?: number;
 }
 
 export type QueryParamsType = Record<string | number, any>;
@@ -103,7 +103,7 @@ export enum ContentType {
 }
 
 export class HttpClient<SecurityDataType = unknown> {
-  public baseUrl: string = "/";
+  public baseUrl: string = "https://virtserver.swaggerhub.com/kchapple/Employees/1.0.0";
   private securityData: SecurityDataType | null = null;
   private securityWorker?: ApiConfig<SecurityDataType>["securityWorker"];
   private abortControllers = new Map<CancelToken, AbortController>();
@@ -270,7 +270,7 @@ export class HttpClient<SecurityDataType = unknown> {
  * @title Employee Stats API
  * @version 1.0.0
  * @license Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0.html)
- * @baseUrl /
+ * @baseUrl https://virtserver.swaggerhub.com/kchapple/Employees/1.0.0
  * @contact <ken.chapple@gmail.com>
  *
  * This is an API to calculate salary stats across employees and departments
@@ -285,9 +285,26 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/health
      */
     getHealth: (params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<{ message?: string }, any>({
         path: `/health`,
         method: "GET",
+        format: "json",
+        ...params,
+      }),
+  };
+  employees = {
+    /**
+     * @description Gets a list of all employees in the system
+     *
+     * @name GetAllEmployees
+     * @summary get all employees
+     * @request GET:/employees
+     */
+    getAllEmployees: (params: RequestParams = {}) =>
+      this.request<Employee[], any>({
+        path: `/employees`,
+        method: "GET",
+        format: "json",
         ...params,
       }),
   };
@@ -300,7 +317,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/employee/{employeeId}
      */
     findEmployee: (employeeId: string, params: RequestParams = {}) =>
-      this.request<any, void>({
+      this.request<void, void>({
         path: `/employee/${employeeId}`,
         method: "GET",
         ...params,
@@ -314,7 +331,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request DELETE:/employee/{employeeId}
      */
     deleteEmployee: (employeeId: string, params: RequestParams = {}) =>
-      this.request<any, void>({
+      this.request<void, void>({
         path: `/employee/${employeeId}`,
         method: "DELETE",
         ...params,
@@ -328,11 +345,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/employee
      */
     addEmployee: (data: Employee, params: RequestParams = {}) =>
-      this.request<void, void>({
+      this.request<Employee, void>({
         path: `/employee`,
         method: "POST",
         body: data,
         type: ContentType.Json,
+        format: "json",
         ...params,
       }),
   };
@@ -345,7 +363,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/statistics/summary
      */
     getAllSummaryStatistics: (params: RequestParams = {}) =>
-      this.request<SummaryStatistics[], void>({
+      this.request<SummaryStatistics, void>({
         path: `/statistics/summary`,
         method: "GET",
         format: "json",
@@ -360,7 +378,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/statistics/summaryForOnContract
      */
     getSummaryStatisticsForOnContract: (params: RequestParams = {}) =>
-      this.request<SummaryStatistics[], void>({
+      this.request<SummaryStatistics, void>({
         path: `/statistics/summaryForOnContract`,
         method: "GET",
         format: "json",
@@ -375,7 +393,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/statistics/summaryForDepartments
      */
     getSummaryStatisticsByDepartment: (params: RequestParams = {}) =>
-      this.request<DepartmentStatistics[], void>({
+      this.request<object, void>({
         path: `/statistics/summaryForDepartments`,
         method: "GET",
         format: "json",
@@ -390,7 +408,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/statistics/summaryForCombinations
      */
     getSummaryStatisticsByDepartmentAndSubDeparment: (params: RequestParams = {}) =>
-      this.request<ComboStatistics[], void>({
+      this.request<object, void>({
         path: `/statistics/summaryForCombinations`,
         method: "GET",
         format: "json",

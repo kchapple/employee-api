@@ -2,15 +2,10 @@ import {Employee, SummaryStatistics} from "../Api";
 import CalculatorException from "../exceptions/CalculatorException";
 
 export class Calculator {
-    private employees: Array<Employee>;
 
-    constructor(employees: Array<Employee>) {
-        this.employees = employees;
-    }
+    public calculate(employees: Array<Employee>): SummaryStatistics {
 
-    public calculate(): SummaryStatistics {
-
-        const salaries = this.employees.map((employee: Employee) => {
+        const salaries = employees.map((employee: Employee) => {
             return Number(employee.salary);
         });
         let min = 0;
