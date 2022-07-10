@@ -1,14 +1,14 @@
 import bodyParser from "body-parser";
 import express, { Application } from 'express';
-import * as OpenApiValidator from 'express-openapi-validator';
-import { createLogger, transports, format } from 'winston';
 import { EmployeeController } from './controllers/EmployeeController';
 import { HealthController } from './controllers/HealthController';
 import { State } from './models/State';
 import { StatsController } from "./controllers/StatsController";
 
 import errorMiddleware from "./middleware/error.middleware";
+import logger from './middleware/logger.middleware';
 import jwtCheck from "./middleware/auth.middleware";
+import validator from "./middleware/schemavalidator.middleware";
 
 const app: Application = express();
 const state = new State();
@@ -16,23 +16,7 @@ const state = new State();
 app.use(jwtCheck);
 app.use(bodyParser.json());
 app.use(express.static('public'));
-
-// Construct the validator based on the spec from our schema dir
-app.use(OpenApiValidator.middleware({
-    apiSpec: './schema/kchapple-Employees-1.0.0-resolved.yaml',
-    validateResponses: true
-}));
-
-const logger = createLogger({
-    transports: [new transports.Console()],
-    format: format.combine(
-        format.colorize(),
-        format.timestamp(),
-        format.simple()
-    ),
-});
-
-
+app.use(validator);
 
 app.get('/health', async (request: express.Request, response: express.Response) => {
     logger.log({ level: 'info', message: 'GET /health. headers: ' + JSON.stringify(request.headers) });
