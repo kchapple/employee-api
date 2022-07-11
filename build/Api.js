@@ -39,7 +39,7 @@ var ContentType;
 })(ContentType = exports.ContentType || (exports.ContentType = {}));
 class HttpClient {
     constructor(apiConfig = {}) {
-        this.baseUrl = "/";
+        this.baseUrl = "https://virtserver.swaggerhub.com/kchapple/Employees/1.0.0";
         this.securityData = null;
         this.abortControllers = new Map();
         this.customFetch = (...fetchParams) => fetch(...fetchParams);
@@ -155,7 +155,7 @@ exports.HttpClient = HttpClient;
  * @title Employee Stats API
  * @version 1.0.0
  * @license Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0.html)
- * @baseUrl /
+ * @baseUrl https://virtserver.swaggerhub.com/kchapple/Employees/1.0.0
  * @contact <ken.chapple@gmail.com>
  *
  * This is an API to calculate salary stats across employees and departments
@@ -191,7 +191,7 @@ class Api extends HttpClient {
              * @summary gets an employee
              * @request GET:/employee/{employeeId}
              */
-            findEmployee: (employeeId, params = {}) => this.request(Object.assign({ path: `/employee/${employeeId}`, method: "GET" }, params)),
+            findEmployee: (employeeId, params = {}) => this.request(Object.assign({ path: `/employee/${employeeId}`, method: "GET", format: "json" }, params)),
             /**
              * @description Deletes an employee from the system
              *

@@ -293,7 +293,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/health
      */
     getHealth: (params: RequestParams = {}) =>
-      this.request<{ message?: string }, any>({
+      this.request<{ message?: string }, ErrorResponse>({
         path: `/health`,
         method: "GET",
         format: "json",
@@ -309,7 +309,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/employees
      */
     getAllEmployees: (params: RequestParams = {}) =>
-      this.request<Employee[], any>({
+      this.request<Employee[], ErrorResponse>({
         path: `/employees`,
         method: "GET",
         format: "json",
@@ -325,7 +325,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/employee/{employeeId}
      */
     findEmployee: (employeeId: string, params: RequestParams = {}) =>
-      this.request<Employee, ErrorResponse | void>({
+      this.request<Employee, ErrorResponse>({
         path: `/employee/${employeeId}`,
         method: "GET",
         format: "json",
@@ -340,7 +340,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request DELETE:/employee/{employeeId}
      */
     deleteEmployee: (employeeId: string, params: RequestParams = {}) =>
-      this.request<void, ErrorResponse | void>({
+      this.request<void, ErrorResponse>({
         path: `/employee/${employeeId}`,
         method: "DELETE",
         ...params,
@@ -354,7 +354,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/employee
      */
     addEmployee: (data: Employee, params: RequestParams = {}) =>
-      this.request<Employee, ErrorResponse | void>({
+      this.request<Employee, ErrorResponse>({
         path: `/employee`,
         method: "POST",
         body: data,

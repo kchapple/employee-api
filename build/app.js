@@ -15,18 +15,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const body_parser_1 = __importDefault(require("body-parser"));
 const express_1 = __importDefault(require("express"));
 const EmployeeController_1 = require("./controllers/EmployeeController");
+const ErrorHandler_1 = require("./models/ErrorHandler");
 const HealthController_1 = require("./controllers/HealthController");
 const State_1 = require("./models/State");
 const StatsController_1 = require("./controllers/StatsController");
 const swaggerUi = require("swagger-ui-express");
 const error_middleware_1 = __importDefault(require("./middleware/error.middleware"));
 const logger_middleware_1 = __importDefault(require("./middleware/logger.middleware"));
-// import jwtCheck from "./middleware/auth.middleware";
 const schemavalidator_middleware_1 = __importDefault(require("./middleware/schemavalidator.middleware"));
 const documentation_middleware_1 = __importDefault(require("./middleware/documentation.middleware"));
-const { auth } = require('express-oauth2-jwt-bearer');
 const app = (0, express_1.default)();
 const state = new State_1.State();
+const errorHandler = new ErrorHandler_1.ErrorHandler();
+// We define our auth middleware here, replace with a noop for jest testing
+const { auth } = require('express-oauth2-jwt-bearer');
 let jwtCheck;
 if (process.env.JEST_WORKER_ID === undefined) {
     // Middleware to verify against the Auth0 JSON Web Key Set.
@@ -59,10 +61,21 @@ app.delete('/employee/:id', jwtCheck, (request, response) => __awaiter(void 0, v
         return response.send(controllerResp);
     }
     catch (error) {
-        return response.send({
-            status: 400,
-            message: error.message
-        });
+        const errResp = errorHandler.makeErrorResponse(error, response);
+        return response.send(errResp);
+    }
+}));
+app.get('/employee/:id', jwtCheck, (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    logger_middleware_1.default.log({ level: 'info', message: 'GET /employee. headers: ' + JSON.stringify(request.headers) });
+    const controller = new EmployeeController_1.EmployeeController(state);
+    const id = request.params.id;
+    try {
+        const controllerResp = yield controller.findEmployeeById(id);
+        return response.send(controllerResp);
+    }
+    catch (error) {
+        const errResp = errorHandler.makeErrorResponse(error, response);
+        return response.send(errResp);
     }
 }));
 app.post('/employee', jwtCheck, (request, response) => __awaiter(void 0, void 0, void 0, function* () {
@@ -74,10 +87,8 @@ app.post('/employee', jwtCheck, (request, response) => __awaiter(void 0, void 0,
         return response.send(controllerResp);
     }
     catch (error) {
-        return response.send({
-            status: 400,
-            message: error.message
-        });
+        const errResp = errorHandler.makeErrorResponse(error, response);
+        return response.send(errResp);
     }
 }));
 app.get('/employees', jwtCheck, (request, response) => __awaiter(void 0, void 0, void 0, function* () {
@@ -88,10 +99,8 @@ app.get('/employees', jwtCheck, (request, response) => __awaiter(void 0, void 0,
         response.send(controllerResp);
     }
     catch (error) {
-        return response.send({
-            status: 400,
-            message: error.message
-        });
+        const errResp = errorHandler.makeErrorResponse(error, response);
+        return response.send(errResp);
     }
 }));
 app.get('/statistics/summary', jwtCheck, (request, response) => __awaiter(void 0, void 0, void 0, function* () {
@@ -102,10 +111,8 @@ app.get('/statistics/summary', jwtCheck, (request, response) => __awaiter(void 0
         return response.send(controllerResp);
     }
     catch (error) {
-        return response.send({
-            status: 400,
-            message: error.message
-        });
+        const errResp = errorHandler.makeErrorResponse(error, response);
+        return response.send(errResp);
     }
 }));
 app.get('/statistics/summaryForOnContract', jwtCheck, (request, response) => __awaiter(void 0, void 0, void 0, function* () {
@@ -116,10 +123,8 @@ app.get('/statistics/summaryForOnContract', jwtCheck, (request, response) => __a
         return response.send(controllerResp);
     }
     catch (error) {
-        return response.send({
-            status: 400,
-            message: error.message
-        });
+        const errResp = errorHandler.makeErrorResponse(error, response);
+        return response.send(errResp);
     }
 }));
 app.get('/statistics/summaryForDepartments', jwtCheck, (request, response) => __awaiter(void 0, void 0, void 0, function* () {
@@ -130,10 +135,8 @@ app.get('/statistics/summaryForDepartments', jwtCheck, (request, response) => __
         return response.send(controllerResp);
     }
     catch (error) {
-        return response.send({
-            status: 400,
-            message: error.message
-        });
+        const errResp = errorHandler.makeErrorResponse(error, response);
+        return response.send(errResp);
     }
 }));
 app.get('/statistics/summaryForCombinations', jwtCheck, (request, response) => __awaiter(void 0, void 0, void 0, function* () {
@@ -144,10 +147,8 @@ app.get('/statistics/summaryForCombinations', jwtCheck, (request, response) => _
         return response.send(controllerResp);
     }
     catch (error) {
-        return response.send({
-            status: 400,
-            message: error.message
-        });
+        const errResp = errorHandler.makeErrorResponse(error, response);
+        return response.send(errResp);
     }
 }));
 // add the error handling middleware (add last or else other middlewares will be skipped)

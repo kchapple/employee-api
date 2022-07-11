@@ -40,6 +40,13 @@ describe("GET /statistics/summaryForCombinations", () => {
                 "currency": "USD",
                 "department": "Engineering",
                 "sub_department": "Platform"
+            },
+            {
+                "name": "Abhishek",
+                "salary": "300",
+                "currency": "USD",
+                "department": "Engineering",
+                "sub_department": "Foo"
             }
         ];
         // Add our data
@@ -52,6 +59,10 @@ describe("GET /statistics/summaryForCombinations", () => {
         expect(response2.body["Engineering"]["Platform"]).toHaveProperty("mean", 200);
         expect(response2.body["Engineering"]["Platform"]).toHaveProperty("min", 100);
         expect(response2.body["Engineering"]["Platform"]).toHaveProperty("max", 300);
+        expect(response2.body["Engineering"]).toHaveProperty("Foo");
+        expect(response2.body["Engineering"]["Foo"]).toHaveProperty("mean", 300);
+        expect(response2.body["Engineering"]["Foo"]).toHaveProperty("min", 300);
+        expect(response2.body["Engineering"]["Foo"]).toHaveProperty("max", 300);
         expect(response2.statusCode).toBe(200);
     }));
 });

@@ -17,6 +17,11 @@ class EmployeeController extends AbstractController_1.AbstractController {
             return this.state.addEmployee(body);
         });
     }
+    findEmployeeById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.state.findEmployeeById(id);
+        });
+    }
     delete(id) {
         return __awaiter(this, void 0, void 0, function* () {
             return this.state.deleteEmployee(id);

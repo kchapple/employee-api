@@ -32,6 +32,12 @@ paths:
                   message:
                     type: string
                     description: Displays health of the server
+        "401":
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /employees:
     get:
       summary: get all employees
@@ -46,6 +52,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Employee'
+        "401":
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /employee/{employeeId}:
     get:
       summary: gets an employee
@@ -74,8 +86,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         "404":
           description: Employee not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
     delete:
       summary: deletes an employee
       description: Deletes an employee from the system
@@ -99,8 +121,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         "404":
           description: Employee not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /employee:
     post:
       summary: adds an employee
@@ -126,8 +158,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         "409":
           description: an existing item already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /statistics/summary:
     get:
       summary: Retrieve SS across all departments
@@ -146,6 +188,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /statistics/summaryForOnContract:
     get:
       summary: Retrieve SS for on contract employees across all departments
@@ -160,6 +208,12 @@ paths:
                 $ref: '#/components/schemas/SummaryStatistics'
         "400":
           description: Request could not be processed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: unauthorized
           content:
             application/json:
               schema:
@@ -184,6 +238,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /statistics/summaryForCombinations:
     get:
       summary: Retrieve SS organized by combinations of departments and their sub-departments
@@ -200,6 +260,12 @@ paths:
                   $ref: '#/components/schemas/ComboStatistics'
         "400":
           description: Request could not be processed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: unauthorized
           content:
             application/json:
               schema:

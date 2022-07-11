@@ -32,6 +32,19 @@ class State {
             });
         });
     }
+    findEmployeeById(uuid) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise(resolve => {
+                if (this.employees.has(uuid)) {
+                    const employee = this.employees.get(uuid);
+                    resolve(employee);
+                }
+                else {
+                    throw new StateException_1.default("Employee not found");
+                }
+            });
+        });
+    }
     deleteEmployee(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise(resolve => {
