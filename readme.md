@@ -1,14 +1,30 @@
-# Clipboard Employee REST API application
+# Employee REST API application
 
-Welcome to the Clipboard Employees API, which is a Node.js server application written in Typescript. 
+Welcome to the Employees API, which is a Node.js server application written in Typescript.
 
-The API is programmed to the schema found in the schema/ directory. The schema was written on swaggerhub.com and 
-in the swagger editor and exported as a yaml file.
+With this API, you can create, list, find and delete employees. You can also calculate use the API to
+derive simplified summary statistics (mean, min, max) on the dataset of employees.
+
+The API is programmed to the schema found in the schema/ directory. I chose to use this schema-first design
+to remove assumptions about the request and response formats, which are clearly defined in the schema. The 
+schema was written on swaggerhub.com and in the swagger editor and exported as a yaml file. From the yaml file, 
+we can generate TS interfaces from the spec's "Components", perform validation against the schema of our requests 
+and responses, and generate documentation.  
 
 The schema serves three main purposes:
 1. Define the API and generate documentation
 2. Generate Typescript interfaces for the request and responses (see src/Api.js)
 3. Validation of requests and responses using express-openapi-validator
+
+The entry point for the application is index.ts.
+
+The routes are contained in app.ts.
+
+The data store, called "models/State.ts", is a simple Map of employees. The state acts as a repository
+for employees. 
+
+The calculator called "models/Calculator.ts" is responsible for deriving summary stats given an array
+of employees.
 
 ## Docker
 
@@ -37,6 +53,12 @@ docker push kchapple/clipboard-employees-app
 
 `npm run dev`
 
+## Access the app
+
+After installing and starting, the app will be available on port 8000:
+
+`localhost:8000/employees`
+
 ## Run the tests
 
 The application uses Jest for unit testing and API testing. To run tests:
@@ -64,10 +86,10 @@ The application also hosts its own generated documentation:
 
 ## Postman Collection
 
-To demo the API, you can load the Postman Collection `Clipboard.postman_collection.json`
+To demo the API, you can load the Postman Collection `Employees.postman_collection.json`
 in the root of the project. This collection contains all routes that the API implements including
 the authentication routes. You can load this collection and send the Auth request to get your 
-token.
+token, or use the curl calls below.
 
 ## Auth
 
