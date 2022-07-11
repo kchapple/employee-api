@@ -56,50 +56,27 @@ To re-generate the Api.ts file after changing the schema, run:
 API documentation and example requests are generated using the Open API schema.
 
 The docs can be accessed on swaggerhub.com
-https://app.swaggerhub.com/apis-docs/kchapple/Employees/1.0.0
+`https://app.swaggerhub.com/apis-docs/kchapple/Employees/1.0.0`
 
 The application also hosts its own generated documentation:
-`http://[base-url]:8000/documentation/`
+`http://localhost:8000/documentation/`
 
 ## Postman Collection
 
-To demo the API, you can load the Postman Collection Clipboard.postman_collection.json
+To demo the API, you can load the Postman Collection `Clipboard.postman_collection.json`
 in the root of the project. This collection contains all routes that the API implements including
 the authentication routes. You can load this collection and send the Auth request to get your 
 token.
 
 ## Auth
 
-The application utilizes Auth0 as the authentication provider. All endpoints are secured
+The application utilizes Auth0 as the authentication provider and JWT. All endpoints are secured
 by authentication middleware, except for the documentation endpoint. To authorize the API
-you can use the below sample credentials:
-
-Sample Auth Request: `https://dev-ekg7j3vm.us.auth0.com/oauth/token`
-
-```
-{
-    "client_id":"vEzN4hxQMYUZBoOYhAlHP4FV11a5soUq",
-    "client_secret":"oNILv23YIEw20LvjqvB53jP6T2j8PxlZf87jIYTzt28GDlhy4hOn37dJFIEtxBUD",
-    "audience":"localhost:8000/",
-    "grant_type":"password",
-    "username": "ken.chapple@gmail.com",
-    "password": "tnjp53aFdKeYp8g"
-}
-```
-
-Sample Auth Response:
-```
-{
-    "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InFaNlJ2Rmg2Q2hNZlJtSFRxUzJhbyJ9.eyJpc3MiOiJodHRwczovL2Rldi1la2c3ajN2bS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjJjYTMxZmJlMzhhMTE0ZDAxY2MwOWJhIiwiYXVkIjoibG9jYWxob3N0OjgwMDAvIiwiaWF0IjoxNjU3NDY4MjM5LCJleHAiOjE2NTc1NTQ2MzksImF6cCI6InZFek40aHhRTVlVWkJvT1loQWxIUDRGVjExYTVzb1VxIiwiZ3R5IjoicGFzc3dvcmQiLCJwZXJtaXNzaW9ucyI6W119.oAZOwRm__kRJ3WuMNtaWS7Jymn1oTaQ0INX3K-FdO7neOTYVOp2JCfHWFeu6EjojGiYVOi2931J594vupyFWonaHNnxyQTo6uzYgQfTyVg8QOtmloY0qI8osLiZrWT5IKmgFPtDmaSHztjgtEEq4wgnnfQib4ZYFiBrBsZYQsmH8IFc5wuHizOY9XQGhaM5oSTevFJHxzspi_wOnAvGFxp23-3HZwUWWmr3GtAYoenfqQhgbJtoIWnjHb0x72Gf9_OQrt0qOZlv8kMbrStjNjQpB692xyVUUWAYRnbJRU2FqcMuPn8OqmSz5y3NP27Sv9wV6k--nktIsZY23BfxrVA",
-    "expires_in": 86400,
-    "token_type": "Bearer"
-}
-```
-
+you can use the below sample credentials in the Auth section below.
 
 # REST API
 
-The REST API to the example app is described below.
+The REST API endpoints and example requests and responses are described below.
 
 ## Auth
 
@@ -128,7 +105,7 @@ The REST API to the example app is described below.
         "token_type": "Bearer"
     }
 
-## Get list of Things
+## Get list of employees
 
 ### Request
 
@@ -143,7 +120,7 @@ The REST API to the example app is described below.
 
     []
 
-## Create a new Employee
+## Create a new employee
 
 ### Request
 
@@ -173,7 +150,7 @@ The REST API to the example app is described below.
         "id":"1ed3b289-a7bf-4ecd-8698-e8f267c73ce1"
     }
 
-## Try to create a new Employee with missing required data
+## Try to create a new employee with missing required data
 
 ### Request
 
