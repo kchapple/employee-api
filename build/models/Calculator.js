@@ -6,6 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Calculator = void 0;
 const CalculatorException_1 = __importDefault(require("../exceptions/CalculatorException"));
 class Calculator {
+    /**
+     * Calculate salary statistics (mean, min, max) given an array of employees
+     *
+     * @param employees
+     */
     calculate(employees) {
         const salaries = employees.map((employee) => {
             return Number(employee.salary);
@@ -21,7 +26,7 @@ class Calculator {
             }, 0) / salaries.length);
         }
         else {
-            throw new CalculatorException_1.default("No Employees found to run statistical analysis");
+            throw new CalculatorException_1.default(400, 'No Employees found to run statistical analysis');
         }
         return {
             mean: mean,

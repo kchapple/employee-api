@@ -19,7 +19,7 @@ const ErrorHandler_1 = require("./models/ErrorHandler");
 const HealthController_1 = require("./controllers/HealthController");
 const State_1 = require("./models/State");
 const StatsController_1 = require("./controllers/StatsController");
-const swaggerUi = require("swagger-ui-express");
+const swaggerUi = require('swagger-ui-express');
 const error_middleware_1 = __importDefault(require("./middleware/error.middleware"));
 const logger_middleware_1 = __importDefault(require("./middleware/logger.middleware"));
 const schemavalidator_middleware_1 = __importDefault(require("./middleware/schemavalidator.middleware"));
@@ -42,7 +42,7 @@ else {
         next();
     };
 }
-app.use("/documentation", swaggerUi.serve, swaggerUi.setup(documentation_middleware_1.default));
+app.use('/documentation', swaggerUi.serve, swaggerUi.setup(documentation_middleware_1.default));
 app.use(body_parser_1.default.json());
 app.use(express_1.default.static('public'));
 app.use(schemavalidator_middleware_1.default);

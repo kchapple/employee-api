@@ -19,9 +19,18 @@ class State {
     constructor() {
         this.employees = new Map();
     }
+    /**
+     * Get our employees as an array
+     */
     getEmployeesAsArray() {
         return Array.from(this.employees.values());
     }
+    /**
+     * Add an employee to our Map. Create a UUID for them and add the id property
+     * to the employee object.
+     *
+     * @param employee
+     */
     addEmployee(employee) {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise(resolve => {
@@ -32,6 +41,11 @@ class State {
             });
         });
     }
+    /**
+     * Get an employee out of our Map by their ID
+     *
+     * @param uuid
+     */
     findEmployeeById(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise(resolve => {
@@ -40,11 +54,16 @@ class State {
                     resolve(employee);
                 }
                 else {
-                    throw new StateException_1.default("Employee not found");
+                    throw new StateException_1.default(404, 'Employee not found');
                 }
             });
         });
     }
+    /**
+     * Remove an employee from our Map by their ID
+     *
+     * @param uuid
+     */
     deleteEmployee(uuid) {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise(resolve => {
@@ -53,17 +72,23 @@ class State {
                     resolve(uuid);
                 }
                 else {
-                    throw new StateException_1.default("Employee not found");
+                    throw new StateException_1.default(404, 'Employee not found');
                 }
             });
         });
     }
+    /**
+     * Get all employees out or our Map
+     */
     fetchEmployees() {
         return new Promise(resolve => {
             const employeeArray = Array.from(this.employees.values());
             resolve(employeeArray);
         });
     }
+    /**
+     * Get all employees organized by department
+     */
     fetchEmployeesByDepartment() {
         return new Promise(resolve => {
             let employeeArray = this.getEmployeesAsArray();
@@ -79,6 +104,9 @@ class State {
             resolve(result);
         });
     }
+    /**
+     * Get all employees organized by their department and sub-department
+     */
     fetchEmployeesByDeptSubCombo() {
         return new Promise(resolve => {
             let employeeArray = this.getEmployeesAsArray();
@@ -89,7 +117,7 @@ class State {
                     result.set(employee.department, new Map());
                 }
                 const sub = result.get(employee.department);
-                // @ts-ignore
+                // @ts-ignore TS complains that sub could be undefined, but that is not possible
                 if (!sub.has(employee.sub_department)) {
                     // @ts-ignore
                     sub.set(employee.sub_department, new Array());
@@ -102,12 +130,17 @@ class State {
             resolve(result);
         });
     }
+    /**
+     * Get employees who satisfy the filter criteria
+     *
+     * @param filter
+     */
     fetchEmployeesFilter(filter) {
         return new Promise(resolve => {
             let employeeArray = Array.from(this.employees.values());
             if (filter.onContract === true) {
                 employeeArray = employeeArray.filter((employee) => {
-                    if (employee.on_contract === "true") {
+                    if (employee.on_contract === 'true') {
                         return employee;
                     }
                 });
@@ -115,6 +148,9 @@ class State {
             resolve(employeeArray);
         });
     }
+    /**
+     * Print the Map of employees to the console
+     */
     printEmployees() {
         console.log(this.employees);
     }

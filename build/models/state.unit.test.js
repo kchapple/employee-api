@@ -10,56 +10,56 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const State_1 = require("./State");
-test("groupEmployeesByDepartment()", () => __awaiter(void 0, void 0, void 0, function* () {
+test('groupEmployeesByDepartment()', () => __awaiter(void 0, void 0, void 0, function* () {
     const employees = [
         {
-            name: "Abhishek",
-            salary: "145000",
-            currency: "USD",
-            department: "Engineering",
-            sub_department: "Platform"
+            name: 'Abhishek',
+            salary: '145000',
+            currency: 'USD',
+            department: 'Engineering',
+            sub_department: 'Platform'
         },
         {
-            name: "Anurag",
-            salary: "90000",
-            currency: "USD",
-            department: "Banking",
-            on_contract: "true",
-            sub_department: "Loan"
+            name: 'Anurag',
+            salary: '90000',
+            currency: 'USD',
+            department: 'Banking',
+            on_contract: 'true',
+            sub_department: 'Loan'
         },
         {
-            name: "Himani",
-            salary: "240000",
-            currency: "USD",
-            department: "Engineering",
-            sub_department: "Platform"
+            name: 'Himani',
+            salary: '240000',
+            currency: 'USD',
+            department: 'Engineering',
+            sub_department: 'Platform'
         }
     ];
     const expectedGroupedEmployees = {
-        "Engineering": [
+        'Engineering': [
             {
-                name: "Abhishek",
-                salary: "145000",
-                currency: "USD",
-                department: "Engineering",
-                sub_department: "Platform"
+                name: 'Abhishek',
+                salary: '145000',
+                currency: 'USD',
+                department: 'Engineering',
+                sub_department: 'Platform'
             },
             {
-                name: "Himani",
-                salary: "240000",
-                currency: "USD",
-                department: "Engineering",
-                sub_department: "Platform"
+                name: 'Himani',
+                salary: '240000',
+                currency: 'USD',
+                department: 'Engineering',
+                sub_department: 'Platform'
             }
         ],
-        "Banking": [
+        'Banking': [
             {
-                name: "Anurag",
-                salary: "90000",
-                currency: "USD",
-                department: "Banking",
-                on_contract: "true",
-                sub_department: "Loan"
+                name: 'Anurag',
+                salary: '90000',
+                currency: 'USD',
+                department: 'Banking',
+                on_contract: 'true',
+                sub_department: 'Loan'
             }
         ]
     };
@@ -70,62 +70,62 @@ test("groupEmployeesByDepartment()", () => __awaiter(void 0, void 0, void 0, fun
     }
     ;
     const groupedEmployees = yield state.fetchEmployeesByDepartment();
-    expect(groupedEmployees.has("Engineering")).toEqual(true);
-    expect(groupedEmployees.has("Banking")).toEqual(true);
+    expect(groupedEmployees.has('Engineering')).toEqual(true);
+    expect(groupedEmployees.has('Banking')).toEqual(true);
 }));
-test("groupEmployeesByDeptSubCombo()", () => __awaiter(void 0, void 0, void 0, function* () {
+test('groupEmployeesByDeptSubCombo()', () => __awaiter(void 0, void 0, void 0, function* () {
     const employees = [
         {
-            name: "Abhishek",
-            salary: "145000",
-            currency: "USD",
-            department: "Engineering",
-            sub_department: "Platform"
+            name: 'Abhishek',
+            salary: '145000',
+            currency: 'USD',
+            department: 'Engineering',
+            sub_department: 'Platform'
         },
         {
-            name: "Anurag",
-            salary: "90000",
-            currency: "USD",
-            department: "Banking",
-            on_contract: "true",
-            sub_department: "Loan"
+            name: 'Anurag',
+            salary: '90000',
+            currency: 'USD',
+            department: 'Banking',
+            on_contract: 'true',
+            sub_department: 'Loan'
         },
         {
-            name: "Himani",
-            salary: "240000",
-            currency: "USD",
-            department: "Engineering",
-            sub_department: "Platform"
+            name: 'Himani',
+            salary: '240000',
+            currency: 'USD',
+            department: 'Engineering',
+            sub_department: 'Platform'
         }
     ];
     const expectedGroupedEmployees = {
-        "Engineering": {
-            "Platform": [
+        'Engineering': {
+            'Platform': [
                 {
-                    name: "Abhishek",
-                    salary: "145000",
-                    currency: "USD",
-                    department: "Engineering",
-                    sub_department: "Platform"
+                    name: 'Abhishek',
+                    salary: '145000',
+                    currency: 'USD',
+                    department: 'Engineering',
+                    sub_department: 'Platform'
                 },
                 {
-                    name: "Himani",
-                    salary: "240000",
-                    currency: "USD",
-                    department: "Engineering",
-                    sub_department: "Platform"
+                    name: 'Himani',
+                    salary: '240000',
+                    currency: 'USD',
+                    department: 'Engineering',
+                    sub_department: 'Platform'
                 }
             ]
         },
-        "Banking": {
-            "Loan": [
+        'Banking': {
+            'Loan': [
                 {
-                    name: "Anurag",
-                    salary: "90000",
-                    currency: "USD",
-                    department: "Banking",
-                    on_contract: "true",
-                    sub_department: "Loan"
+                    name: 'Anurag',
+                    salary: '90000',
+                    currency: 'USD',
+                    department: 'Banking',
+                    on_contract: 'true',
+                    sub_department: 'Loan'
                 }
             ]
         }
@@ -137,10 +137,10 @@ test("groupEmployeesByDeptSubCombo()", () => __awaiter(void 0, void 0, void 0, f
     }
     ;
     const groupedEmployees = yield state.fetchEmployeesByDeptSubCombo();
-    expect(groupedEmployees.has("Engineering")).toEqual(true);
+    expect(groupedEmployees.has('Engineering')).toEqual(true);
     // @ts-ignore
-    expect(groupedEmployees.get("Engineering").has("Platform")).toEqual(true);
-    expect(groupedEmployees.has("Banking")).toEqual(true);
+    expect(groupedEmployees.get('Engineering').has('Platform')).toEqual(true);
+    expect(groupedEmployees.has('Banking')).toEqual(true);
     // @ts-ignore
-    expect(groupedEmployees.get("Banking").has("Loan")).toEqual(true);
+    expect(groupedEmployees.get('Banking').has('Loan')).toEqual(true);
 }));

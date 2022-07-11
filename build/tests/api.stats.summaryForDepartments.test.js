@@ -16,41 +16,41 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
 // we also need our app for the correct routes!
 // @ts-ignore
-const { app } = require("../app");
-describe("GET /statistics/summaryForDepartments", () => {
-    test("Server should respond with a single SS", () => __awaiter(void 0, void 0, void 0, function* () {
+const { app } = require('../app');
+describe('GET /statistics/summaryForDepartments', () => {
+    test('Server should respond with a single SS', () => __awaiter(void 0, void 0, void 0, function* () {
         // First create an employee
         const data = [
             {
-                "name": "Abhishek",
-                "salary": "145000",
-                "currency": "USD",
-                "department": "Engineering",
-                "sub_department": "Platform"
+                'name': 'Abhishek',
+                'salary': '145000',
+                'currency': 'USD',
+                'department': 'Engineering',
+                'sub_department': 'Platform'
             },
             {
-                "name": "Himani",
-                "salary": "240000",
-                "currency": "USD",
-                "department": "Engineering",
-                "sub_department": "Platform"
+                'name': 'Himani',
+                'salary': '240000',
+                'currency': 'USD',
+                'department': 'Engineering',
+                'sub_department': 'Platform'
             },
             {
-                "name": "Yatendra",
-                "salary": "30",
-                "currency": "USD",
-                "department": "Operations",
-                "sub_department": "CustomerOnboarding"
+                'name': 'Yatendra',
+                'salary': '30',
+                'currency': 'USD',
+                'department': 'Operations',
+                'sub_department': 'CustomerOnboarding'
             }
         ];
         for (let d in data) {
-            const response = yield (0, supertest_1.default)(app).post("/employee").send(data[d]);
+            const response = yield (0, supertest_1.default)(app).post('/employee').send(data[d]);
         }
         const response2 = yield (0, supertest_1.default)(app).get('/statistics/summaryForDepartments');
-        expect(response2.body).toHaveProperty("Engineering");
-        expect(response2.body["Engineering"]).toHaveProperty("mean", 192500);
-        expect(response2.body["Engineering"]).toHaveProperty("min", 145000);
-        expect(response2.body["Engineering"]).toHaveProperty("max", 240000);
+        expect(response2.body).toHaveProperty('Engineering');
+        expect(response2.body['Engineering']).toHaveProperty('mean', 192500);
+        expect(response2.body['Engineering']).toHaveProperty('min', 145000);
+        expect(response2.body['Engineering']).toHaveProperty('max', 240000);
         expect(response2.statusCode).toBe(200);
     }));
 });

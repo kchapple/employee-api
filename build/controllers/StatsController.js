@@ -16,13 +16,19 @@ exports.StatsController = void 0;
 const AbstractController_1 = require("./AbstractController");
 const Calculator_1 = require("../models/Calculator");
 const EmployeeFilter_1 = require("../models/EmployeeFilter");
-const CalculatorException_1 = __importDefault(require("../exceptions/CalculatorException"));
+const StatsException_1 = __importDefault(require("../exceptions/StatsException"));
 class StatsController extends AbstractController_1.AbstractController {
+    /**
+     * Calculate summary statistics across all employees and return a Promise
+     * containing SummaryStatistics interface.
+     *
+     * If there are no employees, throw an exception.
+     */
     getAllSummaryStatistics() {
         return __awaiter(this, void 0, void 0, function* () {
             const employees = yield this.state.fetchEmployees();
             if (employees.length === 0) {
-                throw new CalculatorException_1.default("No employees found to calculate summary");
+                throw new StatsException_1.default(400, 'No employees found to calculate summary');
             }
             const calculator = new Calculator_1.Calculator();
             try {
@@ -33,22 +39,34 @@ class StatsController extends AbstractController_1.AbstractController {
             }
         });
     }
+    /**
+     * Calculate summary statistics across all employees that are on-contract and return a Promise
+     * containing SummaryStatistics interface.
+     *
+     * If there are no employees, throw an exception.
+     */
     getSummaryStatisticsForOnContract() {
         return __awaiter(this, void 0, void 0, function* () {
             const employeesOnContract = yield this.state.fetchEmployeesFilter(new EmployeeFilter_1.EmployeeFilter(true));
             if (employeesOnContract.length === 0) {
-                throw new CalculatorException_1.default("No employees found to calculate summary");
+                throw new StatsException_1.default(400, 'No employees found to calculate summary');
             }
             const calculator = new Calculator_1.Calculator();
             const ss = calculator.calculate(employeesOnContract);
             return ss;
         });
     }
+    /**
+     * Calculate summary statistics across all employees arranged by department and return a Promise
+     * containing DepartmentStatistics interface.
+     *
+     * If there are no employees, throw an exception.
+     */
     getSummaryStatisticsByDepartment() {
         return __awaiter(this, void 0, void 0, function* () {
             const employeesByDepartment = yield this.state.fetchEmployeesByDepartment();
             if (employeesByDepartment.size === 0) {
-                throw new CalculatorException_1.default("No employees found to calculate summary");
+                throw new StatsException_1.default(400, 'No employees found to calculate summary');
             }
             const calculator = new Calculator_1.Calculator();
             let departmentStatistics = Object.create(null);
@@ -59,11 +77,17 @@ class StatsController extends AbstractController_1.AbstractController {
             return departmentStatistics;
         });
     }
+    /**
+     * Calculate summary statistics across all employees arranged by department, and their sub-department,
+     * and return a Promise containing ComboStatistics interface.
+     *
+     * If there are no employees, throw an exception.
+     */
     getSummaryStatisticsByDeptAndSub() {
         return __awaiter(this, void 0, void 0, function* () {
             const employeesByCombo = yield this.state.fetchEmployeesByDeptSubCombo();
             if (employeesByCombo.size === 0) {
-                throw new CalculatorException_1.default("No employees found to calculate summary");
+                throw new StatsException_1.default(400, 'No employees found to calculate summary');
             }
             const calculator = new Calculator_1.Calculator();
             let departmentStatistics = Object.create(null);

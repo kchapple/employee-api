@@ -16,21 +16,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
 // we also need our app for the correct routes!
 // @ts-ignore
-const { app } = require("../app");
-describe("POST /employee ", () => {
-    test("Server should respond with newly created employee", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app).post("/employee").send({
-            "name": "Abhishek",
-            "salary": "145000",
-            "currency": "USD",
-            "department": "Engineering",
-            "sub_department": "Platform"
+const { app } = require('../app');
+describe('POST /employee ', () => {
+    test('Server should respond with newly created employee', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app).post('/employee').send({
+            'name': 'Abhishek',
+            'salary': '145000',
+            'currency': 'USD',
+            'department': 'Engineering',
+            'sub_department': 'Platform'
         });
-        expect(response.body).toHaveProperty("name", "Abhishek");
-        expect(response.body).toHaveProperty("salary", "145000");
-        expect(response.body).toHaveProperty("currency", "USD");
-        expect(response.body).toHaveProperty("department", "Engineering");
-        expect(response.body).toHaveProperty("sub_department", "Platform");
+        expect(response.body).toHaveProperty('name', 'Abhishek');
+        expect(response.body).toHaveProperty('salary', '145000');
+        expect(response.body).toHaveProperty('currency', 'USD');
+        expect(response.body).toHaveProperty('department', 'Engineering');
+        expect(response.body).toHaveProperty('sub_department', 'Platform');
         expect(response.body).toHaveProperty('id');
         expect(response.statusCode).toBe(200);
     }));

@@ -16,22 +16,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
 // we also need our app for the correct routes!
 // @ts-ignore
-const { app } = require("../app");
-describe("GET /statistics/summary", () => {
-    test("Server should respond with a single SS", () => __awaiter(void 0, void 0, void 0, function* () {
+const { app } = require('../app');
+describe('GET /statistics/summary', () => {
+    test('Server should respond with a single SS', () => __awaiter(void 0, void 0, void 0, function* () {
         // First create an employee
-        const response = yield (0, supertest_1.default)(app).post("/employee").send({
-            "name": "Abhishek",
-            "salary": "145000",
-            "currency": "USD",
-            "department": "Engineering",
-            "sub_department": "Platform"
+        const response = yield (0, supertest_1.default)(app).post('/employee').send({
+            'name': 'Abhishek',
+            'salary': '145000',
+            'currency': 'USD',
+            'department': 'Engineering',
+            'sub_department': 'Platform'
         });
         console.log(response.body);
         const response2 = yield (0, supertest_1.default)(app).get('/statistics/summary');
-        expect(response2.body).toHaveProperty("mean", 145000);
-        expect(response2.body).toHaveProperty("min", 145000);
-        expect(response2.body).toHaveProperty("max", 145000);
+        expect(response2.body).toHaveProperty('mean', 145000);
+        expect(response2.body).toHaveProperty('min', 145000);
+        expect(response2.body).toHaveProperty('max', 145000);
         expect(response2.statusCode).toBe(200);
     }));
 });

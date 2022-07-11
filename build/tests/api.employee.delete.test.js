@@ -16,17 +16,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
 // we also need our app for the correct routes!
 // @ts-ignore
-const { app } = require("../app");
-describe("POST /employee ", () => {
-    test("Server should respond with newly created employee", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app).post("/employee").send({
-            "name": "Abhishek",
-            "salary": "145000",
-            "currency": "USD",
-            "department": "Engineering",
-            "sub_department": "Platform"
+const { app } = require('../app');
+describe('POST /employee ', () => {
+    test('Server should respond with newly created employee', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app).post('/employee').send({
+            'name': 'Abhishek',
+            'salary': '145000',
+            'currency': 'USD',
+            'department': 'Engineering',
+            'sub_department': 'Platform'
         });
-        const deleteResp = yield (0, supertest_1.default)(app).delete("/employee/" + response.body.id).send();
+        const deleteResp = yield (0, supertest_1.default)(app).delete('/employee/' + response.body.id).send();
         expect(deleteResp.statusCode).toBe(200);
         expect(deleteResp.text).toEqual(response.body.id);
         const listResp = yield (0, supertest_1.default)(app).get('/employees');
