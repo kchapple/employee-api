@@ -1,7 +1,7 @@
-import {Employee} from '../Api'
-import {randomUUID} from 'crypto';
+import { Employee} from '../Api'
+import { randomUUID } from 'crypto';
 import StateException from '../exceptions/StateException';
-import {EmployeeFilter} from './EmployeeFilter';
+import { EmployeeFilter } from './EmployeeFilter';
 
 export class State {
     employees: Map<string,Employee>;

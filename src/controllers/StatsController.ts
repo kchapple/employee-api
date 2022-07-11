@@ -1,8 +1,7 @@
-import {AbstractController} from './AbstractController';
-import {Calculator} from '../models/Calculator';
-import {ComboStatistics, DepartmentStatistics, Employee, SummaryStatistics} from '../Api';
-import {EmployeeController} from './EmployeeController';
-import {EmployeeFilter} from '../models/EmployeeFilter';
+import { AbstractController } from './AbstractController';
+import { Calculator } from '../models/Calculator';
+import { ComboStatistics, DepartmentStatistics, SummaryStatistics } from '../Api';
+import { EmployeeFilter } from '../models/EmployeeFilter';
 import CalculatorException from '../exceptions/CalculatorException';
 
 export class StatsController extends AbstractController

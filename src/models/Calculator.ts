@@ -1,4 +1,4 @@
-import {Employee, SummaryStatistics} from '../Api';
+import { Employee, SummaryStatistics } from '../Api';
 import CalculatorException from '../exceptions/CalculatorException';
 
 export class Calculator {
