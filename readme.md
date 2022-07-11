@@ -123,7 +123,7 @@ The REST API to the example app is described below.
     HTTP/1.1 200 OK
 
     {
-        "access_token": "my-long-token-string",
+        "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InFaNlJ2Rmg2Q2hNZlJtSFRxUzJhbyJ9.eyJpc3MiOiJodHRwczovL2Rldi1la2c3ajN2bS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjJjYTMxZmJlMzhhMTE0ZDAxY2MwOWJhIiwiYXVkIjoibG9jYWxob3N0OjgwMDAvIiwiaWF0IjoxNjU3NTAyMzk4LCJleHAiOjE2NTc1ODg3OTgsImF6cCI6InZFek40aHhRTVlVWkJvT1loQWxIUDRGVjExYTVzb1VxIiwiZ3R5IjoicGFzc3dvcmQiLCJwZXJtaXNzaW9ucyI6W119.kyr6nOLXSEk9XZklWVmRjphqBLnyEo3wDVcDeMC_oHiWUFGrK8Pbe95dDsWl5pJkkyyDJEgpHHkvul3EeynAky43WOne9ahUyNZupHtLBSE4PgDQeIYlyoMOSo4In1ehxIbrSIfV9yUiqF1sI4Be5HGalum0JFQbUAZ1dWOaO9I4dZIi3b8Q_Bgvde88JHQkDkSZglOUpnZV5pt1xUlm-vIzz8PRwidLK4AjUvxE6sN2Enk3JQayLsMptssfGbcIz9-BIt-wwLfCJLPg6dznwE28uHN_F_LwVqzZwgY3yrVCLBD2MVxfsOe7EUbt5pfx4Z_pIGe5psLMZ5_Xi-dJSQ",
         "expires_in": 86400,
         "token_type": "Bearer"
     }
@@ -135,7 +135,7 @@ The REST API to the example app is described below.
 `GET /employees/`
 
     curl --location --request GET 'localhost:8000/employees' \
-    --header 'Authorization: Bearer my-long-token-string'
+    --header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InFaNlJ2Rmg2Q2hNZlJtSFRxUzJhbyJ9.eyJpc3MiOiJodHRwczovL2Rldi1la2c3ajN2bS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjJjYTMxZmJlMzhhMTE0ZDAxY2MwOWJhIiwiYXVkIjoibG9jYWxob3N0OjgwMDAvIiwiaWF0IjoxNjU3NTAyMzk4LCJleHAiOjE2NTc1ODg3OTgsImF6cCI6InZFek40aHhRTVlVWkJvT1loQWxIUDRGVjExYTVzb1VxIiwiZ3R5IjoicGFzc3dvcmQiLCJwZXJtaXNzaW9ucyI6W119.kyr6nOLXSEk9XZklWVmRjphqBLnyEo3wDVcDeMC_oHiWUFGrK8Pbe95dDsWl5pJkkyyDJEgpHHkvul3EeynAky43WOne9ahUyNZupHtLBSE4PgDQeIYlyoMOSo4In1ehxIbrSIfV9yUiqF1sI4Be5HGalum0JFQbUAZ1dWOaO9I4dZIi3b8Q_Bgvde88JHQkDkSZglOUpnZV5pt1xUlm-vIzz8PRwidLK4AjUvxE6sN2Enk3JQayLsMptssfGbcIz9-BIt-wwLfCJLPg6dznwE28uHN_F_LwVqzZwgY3yrVCLBD2MVxfsOe7EUbt5pfx4Z_pIGe5psLMZ5_Xi-dJSQ'
 
 ### Response
 
