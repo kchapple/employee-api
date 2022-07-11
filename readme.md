@@ -267,7 +267,7 @@ The REST API endpoints and example requests and responses are described below.
 ### Response
 
     HTTP/1.1 400 Bad Request
-````
+
     {
         "status": 400,
         "message": "Calculator Error: No employees found to calculate summary"
@@ -329,6 +329,7 @@ The REST API endpoints and example requests and responses are described below.
     curl --location --request GET 'localhost:8000/statistics/summaryForCombinations' \
     --header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InFaNlJ2Rmg2Q2hNZlJtSFRxUzJhbyJ9.eyJpc3MiOiJodHRwczovL2Rldi1la2c3ajN2bS51cy5hdXRoMC5jb20vIiwic3ViIjoiN2x4bFdJeXFPNUN1NG5NVGlTNkhwcmx0aHU1dGxMZmpAY2xpZW50cyIsImF1ZCI6ImxvY2FsaG9zdDo4MDAwLyIsImlhdCI6MTY1NzQxNzYxOCwiZXhwIjoxNjU3NTA0MDE4LCJhenAiOiI3bHhsV0l5cU81Q3U0bk1UaVM2SHBybHRodTV0bExmaiIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyJ9.EjylCKYDjEzP8U94Jh8RVGreaiFdaHmmrs571PUGb33BQ2W661R43-09QjTiygA0nNBSBwsowJPH6Y5cruXr631T9oNCtAlzGXjhezEqdZxjsY3mm6YL49KYWCjbPVoThGVYotYlKsyJxFqwD1zqoiBKbkYZa8CEcy25jyC4mIc8WyxZTilWKxOLF2xf76BhpLTwqQeMFemJ58BNluXcWCzWyWxSl1RJERzpTGc8LRoL-M_oZxyf8I0h0ZDWwGWX_J68Pq_RDK5IlcKvb_swFmkPibohhw-bTQXSwS6eujD-n2R4uJKWHmmEZtf2gTZP3Fl-txS5UNHXLENpPZRXgg' \
     --header 'Cookie: _auth_verification=%7B%22nonce%22%3A%223CFDFMdyhP0EdIv_lY60BmRcsi1jgJb-arSoEyQnJa0%22%2C%22state%22%3A%22eyJyZXR1cm5UbyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCJ9%22%7D.CI_2R5IAr_I-Djw3XM2-5MP2KboUIASJYnKbo14oNGU'
+
 ### Response
 
     HTTP/1.1 200 OK
@@ -354,4 +355,3 @@ The REST API endpoints and example requests and responses are described below.
             }
         }
     }
-
