@@ -1,16 +1,16 @@
-import bodyParser from "body-parser";
+import bodyParser from 'body-parser';
 import express, { Application } from 'express';
 import { EmployeeController } from './controllers/EmployeeController';
-import { ErrorHandler } from "./models/ErrorHandler";
+import { ErrorHandler } from './models/ErrorHandler';
 import { HealthController } from './controllers/HealthController';
 import { State } from './models/State';
-import { StatsController } from "./controllers/StatsController";
-const swaggerUi = require("swagger-ui-express");
+import { StatsController } from './controllers/StatsController';
+const swaggerUi = require('swagger-ui-express');
 
-import errorMiddleware from "./middleware/error.middleware";
+import errorMiddleware from './middleware/error.middleware';
 import logger from './middleware/logger.middleware';
-import validator from "./middleware/schemavalidator.middleware";
-import swaggerDocument from "./middleware/documentation.middleware";
+import validator from './middleware/schemavalidator.middleware';
+import swaggerDocument from './middleware/documentation.middleware';
 
 const app: Application = express();
 const state = new State();
@@ -32,7 +32,7 @@ if (process.env.JEST_WORKER_ID === undefined) {
 }
 
 app.use(
-    "/documentation",
+    '/documentation',
     swaggerUi.serve,
     swaggerUi.setup(swaggerDocument)
 );

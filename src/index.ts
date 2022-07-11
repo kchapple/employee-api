@@ -1,5 +1,5 @@
 // @ts-ignore
-const { app, logger } = require("./app");
+const { app, logger } = require('./app');
 
 const PORT = process.env.PORT || 8000;
 

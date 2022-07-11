@@ -1,8 +1,13 @@
-import {Employee, SummaryStatistics} from "../Api";
-import CalculatorException from "../exceptions/CalculatorException";
+import {Employee, SummaryStatistics} from '../Api';
+import CalculatorException from '../exceptions/CalculatorException';
 
 export class Calculator {
 
+    /**
+     * Calculate salary statistics (mean, min, max) given an array of employees
+     *
+     * @param employees
+     */
     public calculate(employees: Array<Employee>): SummaryStatistics {
 
         const salaries = employees.map((employee: Employee) => {
@@ -21,7 +26,7 @@ export class Calculator {
                 return partialSum + n;
             }, 0) / salaries.length);
         } else {
-            throw new CalculatorException("No Employees found to run statistical analysis")
+            throw new CalculatorException('No Employees found to run statistical analysis')
         }
 
         return {

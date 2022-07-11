@@ -1,4 +1,4 @@
-import { ErrorResponse } from "../Api";
+import { ErrorResponse } from '../Api';
 
 export class BaseErrorResponse implements ErrorResponse
 {

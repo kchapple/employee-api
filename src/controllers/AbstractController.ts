@@ -1,4 +1,4 @@
-import {State} from "../models/State";
+import {State} from '../models/State';
 
 export class AbstractController {
 

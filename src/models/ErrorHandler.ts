@@ -1,7 +1,7 @@
-import CalculatorException from "../exceptions/CalculatorException";
-import express from "express";
-import { BaseErrorResponse } from "./BaseErrorResponse";
-import {ErrorResponse} from "../Api";
+import CalculatorException from '../exceptions/CalculatorException';
+import express from 'express';
+import { BaseErrorResponse } from './BaseErrorResponse';
+import {ErrorResponse} from '../Api';
 
 export class ErrorHandler
 {

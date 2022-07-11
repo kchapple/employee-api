@@ -1,4 +1,4 @@
-import * as OpenApiValidator from "express-openapi-validator";
+import * as OpenApiValidator from 'express-openapi-validator';
 
 // Construct the validator based on the spec from our schema dir
 const validator = OpenApiValidator.middleware({

@@ -1,5 +1,5 @@
-import {AbstractController} from "./AbstractController";
-import {Employee} from "../Api";
+import {AbstractController} from './AbstractController';
+import {Employee} from '../Api';
 
 export class EmployeeController extends AbstractController {
 

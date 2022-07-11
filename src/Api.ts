@@ -67,9 +67,9 @@ export interface SummaryStatistics {
 }
 
 export type QueryParamsType = Record<string | number, any>;
-export type ResponseFormat = keyof Omit<Body, "body" | "bodyUsed">;
+export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>;
 
-export interface FullRequestParams extends Omit<RequestInit, "body"> {
+export interface FullRequestParams extends Omit<RequestInit, 'body'> {
   /** set parameter to `true` for call `securityWorker` for this request */
   secure?: boolean;
   /** request path */
@@ -78,7 +78,7 @@ export interface FullRequestParams extends Omit<RequestInit, "body"> {
   type?: ContentType;
   /** query params */
   query?: QueryParamsType;
-  /** format of response (i.e. response.json() -> format: "json") */
+  /** format of response (i.e. response.json() -> format: 'json') */
   format?: ResponseFormat;
   /** request body */
   body?: unknown;
@@ -88,11 +88,11 @@ export interface FullRequestParams extends Omit<RequestInit, "body"> {
   cancelToken?: CancelToken;
 }
 
-export type RequestParams = Omit<FullRequestParams, "body" | "method" | "query" | "path">;
+export type RequestParams = Omit<FullRequestParams, 'body' | 'method' | 'query' | 'path'>;
 
 export interface ApiConfig<SecurityDataType = unknown> {
   baseUrl?: string;
-  baseApiParams?: Omit<RequestParams, "baseUrl" | "cancelToken" | "signal">;
+  baseApiParams?: Omit<RequestParams, 'baseUrl' | 'cancelToken' | 'signal'>;
   securityWorker?: (securityData: SecurityDataType | null) => Promise<RequestParams | void> | RequestParams | void;
   customFetch?: typeof fetch;
 }
@@ -105,23 +105,23 @@ export interface HttpResponse<D extends unknown, E extends unknown = unknown> ex
 type CancelToken = Symbol | string | number;
 
 export enum ContentType {
-  Json = "application/json",
-  FormData = "multipart/form-data",
-  UrlEncoded = "application/x-www-form-urlencoded",
+  Json = 'application/json',
+  FormData = 'multipart/form-data',
+  UrlEncoded = 'application/x-www-form-urlencoded',
 }
 
 export class HttpClient<SecurityDataType = unknown> {
-  public baseUrl: string = "https://virtserver.swaggerhub.com/kchapple/Employees/1.0.0";
+  public baseUrl: string = 'https://virtserver.swaggerhub.com/kchapple/Employees/1.0.0';
   private securityData: SecurityDataType | null = null;
-  private securityWorker?: ApiConfig<SecurityDataType>["securityWorker"];
+  private securityWorker?: ApiConfig<SecurityDataType>['securityWorker'];
   private abortControllers = new Map<CancelToken, AbortController>();
   private customFetch = (...fetchParams: Parameters<typeof fetch>) => fetch(...fetchParams);
 
   private baseApiParams: RequestParams = {
-    credentials: "same-origin",
+    credentials: 'same-origin',
     headers: {},
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
   };
 
   constructor(apiConfig: ApiConfig<SecurityDataType> = {}) {
@@ -134,7 +134,7 @@ export class HttpClient<SecurityDataType = unknown> {
 
   private encodeQueryParam(key: string, value: any) {
     const encodedKey = encodeURIComponent(key);
-    return `${encodedKey}=${encodeURIComponent(typeof value === "number" ? value : `${value}`)}`;
+    return `${encodedKey}=${encodeURIComponent(typeof value === 'number' ? value : `${value}`)}`;
   }
 
   private addQueryParam(query: QueryParamsType, key: string) {
@@ -143,25 +143,25 @@ export class HttpClient<SecurityDataType = unknown> {
 
   private addArrayQueryParam(query: QueryParamsType, key: string) {
     const value = query[key];
-    return value.map((v: any) => this.encodeQueryParam(key, v)).join("&");
+    return value.map((v: any) => this.encodeQueryParam(key, v)).join('&');
   }
 
   protected toQueryString(rawQuery?: QueryParamsType): string {
     const query = rawQuery || {};
-    const keys = Object.keys(query).filter((key) => "undefined" !== typeof query[key]);
+    const keys = Object.keys(query).filter((key) => 'undefined' !== typeof query[key]);
     return keys
       .map((key) => (Array.isArray(query[key]) ? this.addArrayQueryParam(query, key) : this.addQueryParam(query, key)))
-      .join("&");
+      .join('&');
   }
 
   protected addQueryParams(rawQuery?: QueryParamsType): string {
     const queryString = this.toQueryString(rawQuery);
-    return queryString ? `?${queryString}` : "";
+    return queryString ? `?${queryString}` : '';
   }
 
   private contentFormatters: Record<ContentType, (input: any) => any> = {
     [ContentType.Json]: (input: any) =>
-      input !== null && (typeof input === "object" || typeof input === "string") ? JSON.stringify(input) : input,
+      input !== null && (typeof input === 'object' || typeof input === 'string') ? JSON.stringify(input) : input,
     [ContentType.FormData]: (input: any) =>
       Object.keys(input || {}).reduce((formData, key) => {
         const property = input[key];
@@ -169,7 +169,7 @@ export class HttpClient<SecurityDataType = unknown> {
           key,
           property instanceof Blob
             ? property
-            : typeof property === "object" && property !== null
+            : typeof property === 'object' && property !== null
             ? JSON.stringify(property)
             : `${property}`,
         );
@@ -226,7 +226,7 @@ export class HttpClient<SecurityDataType = unknown> {
     ...params
   }: FullRequestParams): Promise<HttpResponse<T, E>> => {
     const secureParams =
-      ((typeof secure === "boolean" ? secure : this.baseApiParams.secure) &&
+      ((typeof secure === 'boolean' ? secure : this.baseApiParams.secure) &&
         this.securityWorker &&
         (await this.securityWorker(this.securityData))) ||
       {};
@@ -235,14 +235,14 @@ export class HttpClient<SecurityDataType = unknown> {
     const payloadFormatter = this.contentFormatters[type || ContentType.Json];
     const responseFormat = format || requestParams.format;
 
-    return this.customFetch(`${baseUrl || this.baseUrl || ""}${path}${queryString ? `?${queryString}` : ""}`, {
+    return this.customFetch(`${baseUrl || this.baseUrl || ''}${path}${queryString ? `?${queryString}` : ''}`, {
       ...requestParams,
       headers: {
-        ...(type && type !== ContentType.FormData ? { "Content-Type": type } : {}),
+        ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {}),
         ...(requestParams.headers || {}),
       },
       signal: cancelToken ? this.createAbortSignal(cancelToken) : void 0,
-      body: typeof body === "undefined" || body === null ? null : payloadFormatter(body),
+      body: typeof body === 'undefined' || body === null ? null : payloadFormatter(body),
     }).then(async (response) => {
       const r = response as HttpResponse<T, E>;
       r.data = null as unknown as T;
@@ -295,8 +295,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     getHealth: (params: RequestParams = {}) =>
       this.request<{ message?: string }, ErrorResponse>({
         path: `/health`,
-        method: "GET",
-        format: "json",
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
   };
@@ -311,8 +311,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     getAllEmployees: (params: RequestParams = {}) =>
       this.request<Employee[], ErrorResponse>({
         path: `/employees`,
-        method: "GET",
-        format: "json",
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
   };
@@ -327,8 +327,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     findEmployee: (employeeId: string, params: RequestParams = {}) =>
       this.request<Employee, ErrorResponse>({
         path: `/employee/${employeeId}`,
-        method: "GET",
-        format: "json",
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
 
@@ -342,7 +342,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     deleteEmployee: (employeeId: string, params: RequestParams = {}) =>
       this.request<void, ErrorResponse>({
         path: `/employee/${employeeId}`,
-        method: "DELETE",
+        method: 'DELETE',
         ...params,
       }),
 
@@ -356,10 +356,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     addEmployee: (data: Employee, params: RequestParams = {}) =>
       this.request<Employee, ErrorResponse>({
         path: `/employee`,
-        method: "POST",
+        method: 'POST',
         body: data,
         type: ContentType.Json,
-        format: "json",
+        format: 'json',
         ...params,
       }),
   };
@@ -374,8 +374,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     getAllSummaryStatistics: (params: RequestParams = {}) =>
       this.request<SummaryStatistics, ErrorResponse>({
         path: `/statistics/summary`,
-        method: "GET",
-        format: "json",
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
 
@@ -389,8 +389,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     getSummaryStatisticsForOnContract: (params: RequestParams = {}) =>
       this.request<SummaryStatistics, ErrorResponse>({
         path: `/statistics/summaryForOnContract`,
-        method: "GET",
-        format: "json",
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
 
@@ -404,8 +404,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     getSummaryStatisticsByDepartment: (params: RequestParams = {}) =>
       this.request<object, ErrorResponse>({
         path: `/statistics/summaryForDepartments`,
-        method: "GET",
-        format: "json",
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
 
@@ -419,8 +419,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     getSummaryStatisticsByDepartmentAndSubDeparment: (params: RequestParams = {}) =>
       this.request<object, ErrorResponse>({
         path: `/statistics/summaryForCombinations`,
-        method: "GET",
-        format: "json",
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
   };

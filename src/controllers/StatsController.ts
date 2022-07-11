@@ -1,9 +1,9 @@
-import {AbstractController} from "./AbstractController";
-import {Calculator} from "../models/Calculator";
-import {ComboStatistics, DepartmentStatistics, Employee, SummaryStatistics} from "../Api";
-import {EmployeeController} from "./EmployeeController";
-import {EmployeeFilter} from "../models/EmployeeFilter";
-import CalculatorException from "../exceptions/CalculatorException";
+import {AbstractController} from './AbstractController';
+import {Calculator} from '../models/Calculator';
+import {ComboStatistics, DepartmentStatistics, Employee, SummaryStatistics} from '../Api';
+import {EmployeeController} from './EmployeeController';
+import {EmployeeFilter} from '../models/EmployeeFilter';
+import CalculatorException from '../exceptions/CalculatorException';
 
 export class StatsController extends AbstractController
 {
@@ -11,7 +11,7 @@ export class StatsController extends AbstractController
     {
         const employees = await this.state.fetchEmployees();
         if (employees.length === 0) {
-            throw new CalculatorException("No employees found to calculate summary");
+            throw new CalculatorException('No employees found to calculate summary');
         }
         const calculator = new Calculator();
         try {
@@ -25,7 +25,7 @@ export class StatsController extends AbstractController
     {
         const employeesOnContract = await this.state.fetchEmployeesFilter(new EmployeeFilter(true));
         if (employeesOnContract.length === 0) {
-            throw new CalculatorException("No employees found to calculate summary");
+            throw new CalculatorException('No employees found to calculate summary');
         }
         const calculator = new Calculator();
         const ss = calculator.calculate(employeesOnContract);
@@ -36,7 +36,7 @@ export class StatsController extends AbstractController
     {
         const employeesByDepartment = await this.state.fetchEmployeesByDepartment();
         if (employeesByDepartment.size === 0) {
-            throw new CalculatorException("No employees found to calculate summary");
+            throw new CalculatorException('No employees found to calculate summary');
         }
         const calculator = new Calculator();
         let departmentStatistics = Object.create(null);
@@ -52,7 +52,7 @@ export class StatsController extends AbstractController
     {
         const employeesByCombo = await this.state.fetchEmployeesByDeptSubCombo();
         if (employeesByCombo.size === 0) {
-            throw new CalculatorException("No employees found to calculate summary");
+            throw new CalculatorException('No employees found to calculate summary');
         }
         const calculator = new Calculator();
         let departmentStatistics = Object.create(null);
