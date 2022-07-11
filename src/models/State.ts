@@ -43,7 +43,7 @@ export class State {
                 const employee = this.employees.get(uuid) as Employee;
                 resolve(employee);
             } else {
-                throw new StateException('Employee not found')
+                throw new StateException(404, 'Employee not found')
             }
         });
     }
@@ -59,7 +59,7 @@ export class State {
                 this.employees.delete(uuid);
                 resolve(uuid);
             } else {
-                throw new StateException('Employee not found')
+                throw new StateException(404,'Employee not found')
             }
         });
     }

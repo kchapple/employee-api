@@ -3,12 +3,12 @@
 Welcome to the Clipboard Employees API, which is a Node.js server application written in Typescript. 
 
 The API is programmed to the schema found in the schema/ directory. The schema was written on swaggerhub.com and 
-exported as a yaml file.
+in the swagger editor and exported as a yaml file.
 
 The schema serves three main purposes:
-1. Define the API and generate documentation (examples are in API Documentation)
+1. Define the API and generate documentation
 2. Generate Typescript interfaces for the request and responses (see src/Api.js)
-3. Validation requests and responses using express-openapi-validator
+3. Validation of requests and responses using express-openapi-validator
 
 ## Docker
 
@@ -24,6 +24,7 @@ docker push kchapple/clipboard-employees-app
 ```
 
 ## Build
+
 `npm run build`
 
 ## Run
@@ -210,10 +211,10 @@ The REST API endpoints and example requests and responses are described below.
 
 ### Response
 
-    HTTP/1.1 400 Bad Request
+    HTTP/1.1 404 Not Found
 
     {
-        "status": 400,
+        "status": 404,
         "message": "State Error: Employee not found"
     }
 
@@ -270,7 +271,7 @@ The REST API endpoints and example requests and responses are described below.
 
     {
         "status": 400,
-        "message": "Calculator Error: No employees found to calculate summary"
+        "message": "Stats Error: No employees found to calculate summary"
     }
 
 ## Get summary statistics for on-contract employees

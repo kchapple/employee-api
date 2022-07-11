@@ -1,10 +1,10 @@
 import HttpException from "./HttpException";
 
-class StateException extends HttpException {
+class StatsException extends HttpException {
     constructor(status: number, message: string) {
         super(status, message);
-        this.message = 'State Error: ' + message;
+        this.message = 'Stats Error: ' + message;
     }
 }
 
-export default StateException;
+export default StatsException;

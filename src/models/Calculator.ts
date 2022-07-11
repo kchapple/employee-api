@@ -26,7 +26,7 @@ export class Calculator {
                 return partialSum + n;
             }, 0) / salaries.length);
         } else {
-            throw new CalculatorException('No Employees found to run statistical analysis')
+            throw new CalculatorException(400, 'No Employees found to run statistical analysis')
         }
 
         return {
